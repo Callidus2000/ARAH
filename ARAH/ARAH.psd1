@@ -43,6 +43,7 @@
 		'Invoke-ARAHRequest'
 		'Get-ARAHLog'
 		'Get-ARAHConnection'
+		'Write-ARAHCallMessage'
 		)
 
 	# Cmdlets to export from this module
