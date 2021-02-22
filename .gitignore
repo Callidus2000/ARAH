@@ -1,0 +1,22 @@
+﻿
+# ignore the settings folder and files for VSCode and PSS
+.vscode/*
+*.psproj
+*TempPoint*
+
+# Ignore staging info from Visual Studio
+library/ARAH/.vs/*
+library/ARAH/ARAH/bin/*
+library/ARAH/ARAH/obj/*
+
+# ignore PowerShell Studio MetaData
+ARAH/ARAH.psproj
+ARAH/ARAH.psproj.bak
+ARAH/ARAH.psprojs
+ARAH/ARAH.psproj
+
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*
