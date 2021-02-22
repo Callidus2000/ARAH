@@ -14,7 +14,7 @@
     }
     ARAHConnection ([String]$Url,[String]$APISubPath) {
         $this.Headers = @{}
-        Write-PSFMessage "Getting ARAH Server-Root for $Url, APISubPath=$APISubPath"
+        Write-PSFMessage "Getting ARAH Server-Root for $Url, APISubPath=$APISubPath" -ModuleName ARAH -FunctionName "ARAHConnection[xx,xx]"
         if (!$APISubPath){
             $APISubPath=""
         }
@@ -25,7 +25,7 @@
         # Strip Prefix protocoll
         $this.ServerRoot = $this.ServerRoot -replace "^.*:\/\/"
         $this.ServerRoot = "https://$($this.ServerRoot)"
-        Write-PSFMessage "Result: $this.ServerRoot"
+        Write-PSFMessage "Result: $this.ServerRoot" -ModuleName ARAH -FunctionName "ARAHConnection[xx,xx]"
 
         $this.WebServiceRoot = ("$($this.ServerRoot)/$($APISubPath)").Trim("/")
     }
