@@ -19,6 +19,7 @@ function Get-ARAHConnection {
     .NOTES
     General notes
     #>
+    [CmdletBinding()]
     param (
         [String]$Url,
         [String]$APISubPath

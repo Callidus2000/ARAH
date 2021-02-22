@@ -1,4 +1,4 @@
-﻿function Get-EncodedParameterString {
+﻿function Get-ARAHEncodedParameterString {
     <#
     .SYNOPSIS
     Converts a hashtable to GET Parameters
@@ -10,7 +10,7 @@
     Hashtable with the GET Parameters
 
     .EXAMPLE
-    Get-EncodedParameterString -parameter @{key1="value1";key2="value2"}
+    Get-ARAHEncodedParameterString -parameter @{key1="value1";key2="value2"}
     Returns the string: key1=value1&key2=value2
 
     .NOTES

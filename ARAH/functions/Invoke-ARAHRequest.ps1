@@ -1,7 +1,7 @@
 ﻿function Invoke-ARAHRequest {
     <#
     .SYNOPSIS
-    Generic API Call to the ARAH API.
+    Generic API Call to a REST API.
 
     .DESCRIPTION
     Generic API Call to the ARAH API. This function is a wrapper for the usage of Invoke-WebRequest. It handles some annoying repetitive tasks which occur in most use cases. This includes (list may be uncompleted)
@@ -11,10 +11,10 @@
     - Paging for API endpoints which do only provide limited amounts of datasets
 
     .PARAMETER Connection
-    Object of Class [ARAH], stores the authentication Token and the API Base-URL. Can be obtained with Connect-ARAH.
+    Object of Class [ARAHConnection], stores the authentication Token and the API Base-URL. Can be obtained with Connect-ARAH.
 
     .PARAMETER Path
-    API Path to the REST function, starting *after* /api.
+    API Path to the REST function, starting *after* the configured Connection.WebServiceRoot.
     Example: "/v4/users"
 
     .PARAMETER Body
@@ -49,6 +49,12 @@
     .PARAMETER EnableException
     If set to true, inner exceptions will be rethrown. Otherwise the an empty result will be returned.
 
+    .PARAMETER RequestModifier
+    Name of a registered PSFScriptBlock which should be processed prior to the real WebRequest.
+
+    .PARAMETER PagingHandler
+    Name of a registered PSFScriptBlock which should process the automatic paging of data.
+
     .EXAMPLE
     $result = Invoke-ARAH -connection $this -path "/v4/auth/login" -method POST -body @{login = $credentials.UserName; password = $credentials.GetNetworkCredential().Password; language = "1"; authType = "sql" } -hideparameters $true
     Login to the service
@@ -59,76 +65,65 @@
 
     param (
         [parameter(Mandatory)]
-        $Connection,
+        [ARAHConnection]$Connection,
+        [parameter(Mandatory)]
+        [Microsoft.Powershell.Commands.WebRequestMethod]$Method,
         [parameter(Mandatory)]
         [string]$Path,
         [Hashtable] $Body,
         [Hashtable] $URLParameter,
-        [parameter(Mandatory)]
-        [Microsoft.Powershell.Commands.WebRequestMethod]$Method,
         [bool] $HideParameters = $false,
         [string]$ContentType = "application/json;charset=UTF-8",
         [string]$InFile,
-        [bool]$EnableException=$true,
+        [bool]$EnableException = $true,
+        [string]$RequestModifier,
+        [string]$PagingHandler,
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path"
         Write-PSFMessage "$($UrlParameter|ConvertTo-Json)"
-        $parameterString = (Get-EncodedParameterString($URLParameter))
+        $parameterString = (Get-ARAHEncodedParameterString($URLParameter))
         $uri = $uri + '?' + $parameterString.trim("?")
     }
     $restAPIParameter = @{
         Uri         = $Uri
         method      = $Method
-        body        = ($Body | Remove-NullFromHashtable)
+        body        = ($Body | Remove-ARAHNullFromHashtable)
         Headers     = $connection.headers
         ContentType = $ContentType
     }
     If ($Body) {
-        $restAPIParameter.body = ($Body | Remove-NullFromHashtable -Json)
+        $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json)
     }
     If ($InFile) {
         $restAPIParameter.InFile = $InFile
     }
 
     try {
+        If ($RequestModifier) {
+            [PSFScriptBlock]$reqModifierScript = Get-PSFScriptBlock -Name $RequestModifier
+            $reqModifierScript.InvokeEx($false, $true, $true)
+        }
         Write-ARAHCallMessage $restAPIParameter
-        $result = Invoke-RestMethod @restAPIParameter
+        $response = Invoke-WebRequest @restAPIParameter
+        $result = $response.Content | ConvertFrom-Json
+        Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
-        if ($EnablePaging -and ($result -is [array])) {
-            Write-PSFMessage "Paging enabled, aber keine Range zurückgeliefert" -Level Warning
-        }elseif ($EnablePaging) {
-            Write-PSFMessage "Paging enabled, starte Schleife, result.range=$($result.range)"
-            $allItems = ($result.items)
-            write-psfmessage "Anzahl ermittelter Items: $($allItems.count)"
-            $URLParameter.limit = $result.range.limit
-            $URLParameter.offset = $result.range.offset
-            while ($result.range.total -gt $allItems.count) {
-                Write-PSFMessage "result.range.total=$($result.range.total) -gt allItems.count=$($allItems.count)"
-                $URLParameter.offset = $allItems.count
-                $nextParameter = @{
-                    Connection     = $Connection
-                    Path           = $Path
-                    Body           = $Body
-                    URLParameter   = $URLParameter
-                    Method         = $Method
-                    HideParameters = $HideParameters
-                }
-                Write-ARAHCallMessage $nextParameter
-                $result = Invoke-ARAH @nextParameter
-                $allItems += ($result.items)
-            }
-            return $allItems
+        if ($EnablePaging -and $PagingHandler) {
+            Write-PSFMessage "MurkSiPu '$($response.Gettype())'"
+            [PSFScriptBlock]$pagingHandlerScript = Get-PSFScriptBlock -Name $PagingHandler
+            $result=$pagingHandlerScript.InvokeEx($false, $true, $false)
         }
     }
     catch {
         $result = $_.errordetails
         Write-PSFMessage "$result" -Level Critical
-        If ($EnableException){
+        If ($EnableException) {
             throw $_#$result.Message
-        }else{
+        }
+        else {
             return
         }
     }

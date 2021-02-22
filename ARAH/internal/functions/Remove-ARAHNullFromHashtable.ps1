@@ -1,4 +1,4 @@
-﻿function Remove-NullFromHashtable {
+﻿function Remove-ARAHNullFromHashtable {
     <#
     .SYNOPSIS
     Funktion zum Entfernen von $null Werten aus HashTables.
@@ -31,7 +31,7 @@
             }
         )
     }
-    $newHash=$hash  | Remove-NullFromHashtable
+    $newHash=$hash  | Remove-ARAHNullFromHashtable
     .NOTES
     General notes
     #>

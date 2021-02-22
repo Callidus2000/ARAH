@@ -44,7 +44,7 @@
         $apiLogString = $apiLogString -replace '("code":\s*").*"', '$1***********"'
         $apiLogString = $apiLogString -replace '("X-Sds-Auth-Token":\s*").*"', '$1***********"'
         $apiLogString = $apiLogString -replace '("Authorization":\s*"Basic ).*"', '$1[BASE64_ENCODED [CLIENT_ID]:[CLIENT_SECRET]]"'
-        Write-PSFMessage -Level Verbose "$apiLogString" -Tag "APICALL" -Target "$callStackString"
+        Write-PSFMessage -Level Debug "$apiLogString" -Tag "APICALL" -Target "$callStackString"
     }
     catch {
         Write-PSFMessage -Level Critical "Could not log API Call $_"
