@@ -31,3 +31,4 @@
     }
 
 }
+Export-PSFModuleClass -ClassType ([ARAHConnection])

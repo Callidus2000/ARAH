@@ -1,1 +1,1 @@
-Export-PSFModuleClass -ClassType ([ARAHConnection])
+#Export-PSFModuleClass -ClassType ([ARAHConnection])
