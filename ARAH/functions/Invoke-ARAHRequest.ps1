@@ -40,9 +40,6 @@
     File which should be transferred during the Request.
     See Publish-ARAHFile for usage.
 
-    .PARAMETER HideParameters
-    If set to $true the password is hidden from logging
-
     .PARAMETER EnablePaging
     If the API makes use of paging (therefor of limit/offset URLParameter) setting EnablePaging to $true will not return the raw data but a combination of all data sets.
 
@@ -72,7 +69,6 @@
         [string]$Path,
         [Hashtable] $Body,
         [Hashtable] $URLParameter,
-        [bool] $HideParameters = $false,
         [string]$ContentType = "application/json;charset=UTF-8",
         [string]$InFile,
         [bool]$EnableException = $true,

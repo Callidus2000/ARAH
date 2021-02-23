@@ -1,4 +1,4 @@
-function Get-ARAHConnection {
+﻿function Get-ARAHConnection {
     <#
     .SYNOPSIS
     Returns an ARAHConnectionObject which is initialized with the serverRoot and WebServiceRoot attributes.
