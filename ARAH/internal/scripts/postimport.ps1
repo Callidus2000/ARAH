@@ -24,3 +24,6 @@ $moduleRoot = Split-Path (Split-Path $PSScriptRoot)
 
 # Load License
 "$moduleRoot\internal\scripts\license.ps1"
+
+# Export Module Definition
+"$moduleRoot\internal\scripts\initialize.ps1"
