@@ -12,3 +12,6 @@ $moduleRoot = Split-Path (Split-Path $PSScriptRoot)
 
 # Load the strings used in messages
 "$moduleRoot\internal\scripts\strings.ps1"
+
+# Import all internal classes
+"$moduleRoot\internal\scripts\import-classes.ps1"
