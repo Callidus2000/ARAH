@@ -24,22 +24,22 @@
 <br />
 <p align="center">
 <!-- PROJECT LOGO
-  <a href="https://github.com/Callidus2000/Dracoon">
+  <a href="https://github.com/Callidus2000/ARAH">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 -->
 
-  <h3 align="center">Dracoon Powershell Module</h3>
+  <h3 align="center">ARAH: Advanced REST API Helper</h3>
 
   <p align="center">
-    This Powershell Module is a wrapper for the API of <a href="https://www.dracoon.com/">Dracoon</a>
+    This Powershell Module is a generic wrapper/helper for REST APIs.
     <br />
-    <a href="https://github.com/Callidus2000/Dracoon"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Callidus2000/ARAH"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Callidus2000/Dracoon/issues">Report Bug</a>
+    <a href="https://github.com/Callidus2000/ARAH/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Callidus2000/Dracoon/issues">Request Feature</a>
+    <a href="https://github.com/Callidus2000/ARAH/issues">Request Feature</a>
   </p>
 </p>
 
@@ -76,10 +76,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This Powershell Module is a wrapper for the API of Dracoon. Dracoon is a
-solution for a secure file exchange and can be used as a cloud service or OnPremise for internal uses. Further information about Dracoon can be found at https://www.dracoon.com/.
-
-The API is very well documented with swagger, documentation can either be found at https://dracoon.team/api/ or (for your custom installation) at https://yourdomain.com/api/.
+This Powershell Module is a generic wrapper/helper for REST APIs. The code has started in my <a href="https://github.com/Callidus2000/Dracoon">Dracoon project</a>. To use the power of the created helper functions within other API centric modules I've created ARAH.
 
 
 ### Built With
@@ -102,93 +99,58 @@ All prerequisites will be installed automatically.
 
 The releases are published in the Powershell Gallery, therefor it is quite simple:
   ```powershell
-  Install-Module Dracoon -Force -AllowClobber
+  Install-Module ARAH -Force -AllowClobber
   ```
-The `AllowClobber` option is currently neccessary because of an issue in the current PowerShellGet module. Hopefully it will not be needed in the future any more.
+The `AllowClobber` option is currently necessary because of an issue in the current PowerShellGet module. Hopefully it will not be needed in the future any more.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-The module is a wrapper for the Dracoon API. As you have to authenticate with OAuth2.0 it is neccessary to create a client application within the admin web-page. For this
-* Go to _System Settings_ / _Apps_ in the navigation bar
-* Click on the _Add app_ button
-* Enter an application name (e.g. "Powershell Scripting")
-* enable all 4 checkboxes (authorization code:implicit:password:refresh token)
-* Copy the _Client ID_ and the _Client Secret_. Both will be referenced as `$ClientID` and `$ClientSecret`.
+The module is a wrapper for the REST API. If you want to learn how it works take a look at my [Gitea Wrapper](https://github.com/Callidus2000/PSGitea) or [Dracoon](https://github.com/Callidus2000/Dracoon). If you want to use it for creating your own API wrapper here is the quick roundup of the necessary steps, with links to the corresponding Gitea scripts as this is the simpler module.
 
-Now it's time to open the powershell. Prepare the basic variables:
+### Create your Connection function
+Every API Call needs information for authentication and maybe additional headers. All this is stored in an `[ARAHConnection]` object. Create this base-object and add the necessary information to it:
 ```powershell
-$cred=Get-Credential -Message "Dracoon"
-$clientId="YOU JUST CREATED IT ;-)"
-$clientSecret="THIS ALSO"
-$url="dracoon.mydomain.com"
+$connection = Get-ARAHConnection -Url $Url -APISubPath "/api"
+$connection.ContentType = "application/json;charset=UTF-8"
 ```
-From here you have multiple possibilities to connect to your server and store the connection for further usage:
-#### Direct auth with /auth/login (**Deprecated**)
-If you are running an older version it maybe possible to login directly. But this option is deprecated and [will be removed in every installation in the future](https://blog.dracoon.com/en/goodbye-x-sds-auth-token-hello-oauth-2.0)
-```powershell
-$connection=Connect-Dracoon -Url $url -Credential $cred
-```
-#### Via OAuth access token
-```powershell
-# Generate accesstoken
-$accessToken=Request-DracoonOAuthToken -ClientID $clientId -ClientSecret $clientSecret -Url $url -Credential $cred -TokenType access
-# Login with created access token
-$connection=Connect-Dracoon -Url $url -AccessToken $accessToken
-```
-#### Via OAuth refresh token
-```powershell
-# Create a refresh token
-$refreshToken=Request-DracoonOAuthToken -ClientID $clientId -ClientSecret $clientSecret -Credential $cred -url $url -TokenType refresh
+##### Example Source [Connect-Gitea.ps1](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Connect-Gitea.ps1)
+This object should be passed to every API function you specify.
 
-# Connect directly with the refresh token
-$connection=Connect-Dracoon -ClientID $clientId -ClientSecret $clientSecret -url $url -RefreshToken $refreshToken
-
-# Second option: Create an access token from the refreh token and login with the access token.
-$accessToken=Request-DracoonOAuthToken -ClientID $clientId -ClientSecret $clientSecret -Url $url -RefreshToken $refreshToken
-$connection=Connect-Dracoon -Url $url -AccessToken $accessToken
-```
-
-Now we are connected to your server: What can we do?
+### Create your API Functions
+This module provides the `Invoke-ARAHRequest` function for invoking API endpoints on a parameter base. All you have to do to access an API function is to tell it where what information is needed. For example accessing the [Gitea API](https://try.gitea.io/api/swagger) for "Get All Organizations"
 ```powershell
-# Query all Users and display the data in a table
-Get-DracoonUser -Connection $connection |ft
+$apiCallParameter = @{
+    Connection   = $Connection
+    method       = "Get"
+    Path         = "/v1/orgs"
+}
 
-# Query a specific user (you have to know the login)
-Get-DracoonUser -Connection $connection -Filter 'login:cn:DonaldDuck'
-
-#Find all locked accounts and remove the users (Luckily it supports WhatIf)
-Get-DracoonUser -Connection $connection -Filter 'isLocked:eq:true' |Remove-DracoonUser -connection $connection -WhatIf
+Invoke-ARAHRequest @apiCallParameter
 ```
-If you need an overview of the existing commands use
+##### Example Source [Get-GiteaOrganisation.ps1](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Get-GiteaOrganisation.ps1)
+This takes away all the clobber of checking parameters for `$null` values and furthermore.
+
+### Optional Step: Create your own Invoke-* Proxy
+If you have got the need to extend the functionality of `Invoke-ARAHRequest` (e.g. modifying the request before it is sent) you can create your own proxy function with defined endpoints. For example the [Invoke-GiteaAPI](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Invoke-GiteaAPI.ps1) uses the same base technique as Invoke-ARAHRequest but enables Paging of provided data with the help of a predefined ScriptBlock.
 ```powershell
-# List available commands
-Get-Command -Module Dracoon
-#Get-Help for a specific command
-Get-Help -Detailed Get-DracoonUser
+function Invoke-GiteaAPI {
+    param (
+        [parameter(Mandatory)]
+        $Connection,
+        #.... example shortened
+    )
+    return Invoke-ARAHRequest @PSBoundParameters -PagingHandler 'Gitea.PagingHandler'
+}
 ```
-everything else is documented in the module itself.
-
-### Tab completion
-Are you tired of typing the URL of your Server? Do you have multiple instances? Add the possible URLs to the Tab Completer:
-```powershell
-Add-DracoonURL "myserver.com"
-```
-Now give it a try and hit `TAB` after any `-Url` Parameter. You can now choose between all previously saved server addresses.
-
-The same mechanism kicks in for the '-Filter' parameters:
-```powershell
-Get-DracoonUser -Connection $connection -Filter [TAB]
-effectiveRoles:eq:[true or false]  firstName:cn:[search String]
-isLocked:eq:[true or false]        lastName:cn:[search String]
-login:cn:[search String]
-```
+##### Example Source [Invoke-GiteaAPI](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Invoke-GiteaAPI.ps1)
+The code for the PagingHandler is defined in `\Gitea\internal\scriptblocks\Gitea-PagingHandler.ps1` and performs all the nasty `page/limit` work. As a result every `Invoke-GiteaAPI` call can return all results not regarding how large the default limit is set.
 
 <!-- ROADMAP -->
 ## Roadmap
 New features will be added if any of my scripts need it ;-)
 
-See the [open issues](https://github.com/Callidus2000/Dracoon/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/Callidus2000/ARAH/issues) for a list of proposed features (and known issues).
 
 If you need a special function feel free to contribute to the project.
 
@@ -206,13 +168,10 @@ Short stop:
 5. Open a Pull Request
 
 
-## Limitations
-* The module only works for unencrypted Datarooms. Simple reason: Our instances do not use the ['Client-side Encryption'](https://support.dracoon.com/hc/en-us/articles/360000986345-Whitepaper-Client-side-Encryption-) feature. If your instance does provide it feel free to add the feature to the module.
-
 <!-- LICENSE -->
 ## License
 
-Distributed under the GNU GENERAL PUBLIC LICENSE version 3. See `LICENSE.md` for more information.
+Distributed under the GNU GENERAL PUBLIC LICENSE version 3. See `LICENSE` for more information.
 
 
 
@@ -220,7 +179,7 @@ Distributed under the GNU GENERAL PUBLIC LICENSE version 3. See `LICENSE.md` for
 ## Contact
 
 
-Project Link: [https://github.com/Callidus2000/Dracoon](https://github.com/Callidus2000/Dracoon)
+Project Link: [https://github.com/Callidus2000/ARAH](https://github.com/Callidus2000/ARAH)
 
 
 
@@ -235,14 +194,14 @@ Project Link: [https://github.com/Callidus2000/Dracoon](https://github.com/Calli
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Callidus2000/Dracoon.svg?style=for-the-badge
-[contributors-url]: https://github.com/Callidus2000/Dracoon/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Callidus2000/Dracoon.svg?style=for-the-badge
-[forks-url]: https://github.com/Callidus2000/Dracoon/network/members
-[stars-shield]: https://img.shields.io/github/stars/Callidus2000/Dracoon.svg?style=for-the-badge
-[stars-url]: https://github.com/Callidus2000/Dracoon/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Callidus2000/Dracoon.svg?style=for-the-badge
-[issues-url]: https://github.com/Callidus2000/Dracoon/issues
-[license-shield]: https://img.shields.io/github/license/Callidus2000/Dracoon.svg?style=for-the-badge
-[license-url]: https://github.com/Callidus2000/Dracoon/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/Callidus2000/ARAH.svg?style=for-the-badge
+[contributors-url]: https://github.com/Callidus2000/ARAH/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Callidus2000/ARAH.svg?style=for-the-badge
+[forks-url]: https://github.com/Callidus2000/ARAH/network/members
+[stars-shield]: https://img.shields.io/github/stars/Callidus2000/ARAH.svg?style=for-the-badge
+[stars-url]: https://github.com/Callidus2000/ARAH/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Callidus2000/ARAH.svg?style=for-the-badge
+[issues-url]: https://github.com/Callidus2000/ARAH/issues
+[license-shield]: https://img.shields.io/github/license/Callidus2000/ARAH.svg?style=for-the-badge
+[license-url]: https://github.com/Callidus2000/ARAH/blob/master/LICENSE
 

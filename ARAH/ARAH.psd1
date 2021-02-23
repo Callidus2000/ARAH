@@ -71,10 +71,10 @@
 			# Tags = @()
 
 			# A URL to the license for this module.
-			# LicenseUri = ''
+			LicenseUri = 'https://raw.githubusercontent.com/Callidus2000/ARAH/master/LICENSE'
 
 			# A URL to the main website for this project.
-			# ProjectUri = ''
+			ProjectUri = 'https://github.com/Callidus2000/ARAH'
 
 			# A URL to an icon representing this module.
 			# IconUri = ''
