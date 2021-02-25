@@ -41,6 +41,9 @@
 	# Functions to export from this module
 	FunctionsToExport = @(
 		'Invoke-ARAHRequest'
+		'Get-ARAHCleanSwaggerInfo'
+		'Get-ARAHSwaggerEndpoint'
+		'Get-ARAHSwaggerSpec'
 		'Get-ARAHLog'
 		'Get-ARAHConnection'
 		'Write-ARAHCallMessage'
