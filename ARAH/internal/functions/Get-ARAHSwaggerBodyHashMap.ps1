@@ -16,7 +16,7 @@ function Get-ARAHSwaggerBodyHashMap {
         'object' {
             $propertyNames = $CurrentObject.properties.psobject.properties.name
             foreach ($propName in $propertyNames) {
-                Add-ARAHSwaggerPropertyToCollections -PropertyName $propName -PropertyObject $CurrentObject.properties.$propName -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -TargetHashMap $body
+                Add-ARAHSwaggerPropertyToCollections -PropertyName $propName -PropertyObject $CurrentObject.properties.$propName -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -TargetHashMap $body -RequiredPoperties $CurrentObject.required
             }
         }
         Default {

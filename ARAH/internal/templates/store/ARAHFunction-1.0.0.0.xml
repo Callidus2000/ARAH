@@ -1,0 +1,129 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>PSModuleDevelopment.Template.Template</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>PSModuleDevelopment.Template.Template</ToString>
+    <Props>
+      <S N="Name">ARAHFunction</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>PSModuleDevelopment.Template.TemplateType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>File</ToString>
+        <I32>0</I32>
+      </Obj>
+      <Version N="Version">1.0.0.0</Version>
+      <S N="Description"></S>
+      <S N="Author">Sascha Spiekermann</S>
+      <DT N="CreatedOn">2021-02-25T00:00:00+01:00</DT>
+      <Nil N="Tags" />
+      <Obj N="Parameters" RefId="2">
+        <TN RefId="2">
+          <T>System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>name</S>
+        </LST>
+      </Obj>
+      <Obj N="Scripts" RefId="3">
+        <TN RefId="3">
+          <T>System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[PSModuleDevelopment.Template.ParameterScript, PSModuleDevelopment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">dynamicscript_421103</S>
+            <Obj N="Value" RefId="4">
+              <TN RefId="4">
+                <T>PSModuleDevelopment.Template.ParameterScript</T>
+                <T>System.Object</T>
+              </TN>
+              <ToString>PSModuleDevelopment.Template.ParameterScript</ToString>
+              <Props>
+                <S N="StringScript"> (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() </S>
+                <S N="Name">dynamicscript_421103</S>
+                <SBK N="ScriptBlock"> (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() </SBK>
+              </Props>
+              <MS>
+                <BA N="SerializationData">AAEAAAD/////AQAAAAAAAAAMAgAAAEpQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAwDAAAAX1N5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24sIFZlcnNpb249Ny4xLjIuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0zMWJmMzg1NmFkMzY0ZTM1BQEAAAAsUFNNb2R1bGVEZXZlbG9wbWVudC5UZW1wbGF0ZS5QYXJhbWV0ZXJTY3JpcHQCAAAABE5hbWULU2NyaXB0QmxvY2sBBDtTeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlNjcmlwdEJsb2NrU2VyaWFsaXphdGlvbkhlbHBlcgMAAAACAAAABgQAAAAUZHluYW1pY3NjcmlwdF80MjExMDMJBQAAAAUFAAAAO1N5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uU2NyaXB0QmxvY2tTZXJpYWxpemF0aW9uSGVscGVyAQAAAApTY3JpcHRUZXh0AQMAAAAGBgAAAEwgKEdldC1QU0ZTY3JpcHRibG9jayAtbmFtZSAnQVJBSC5Td2FnZ2VyLkZ1bmN0aW9uUGFyYW1ldGVycy5IZWxwJykuSW52b2tlKCkgCw==</BA>
+              </MS>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">dynamicscript_418781</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="4" />
+              <ToString>PSModuleDevelopment.Template.ParameterScript</ToString>
+              <Props>
+                <S N="StringScript"> (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters').Invoke() </S>
+                <S N="Name">dynamicscript_418781</S>
+                <SBK N="ScriptBlock"> (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters').Invoke() </SBK>
+              </Props>
+              <MS>
+                <BA N="SerializationData">AAEAAAD/////AQAAAAAAAAAMAgAAAEpQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAwDAAAAX1N5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24sIFZlcnNpb249Ny4xLjIuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0zMWJmMzg1NmFkMzY0ZTM1BQEAAAAsUFNNb2R1bGVEZXZlbG9wbWVudC5UZW1wbGF0ZS5QYXJhbWV0ZXJTY3JpcHQCAAAABE5hbWULU2NyaXB0QmxvY2sBBDtTeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlNjcmlwdEJsb2NrU2VyaWFsaXphdGlvbkhlbHBlcgMAAAACAAAABgQAAAAUZHluYW1pY3NjcmlwdF80MTg3ODEJBQAAAAUFAAAAO1N5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uU2NyaXB0QmxvY2tTZXJpYWxpemF0aW9uSGVscGVyAQAAAApTY3JpcHRUZXh0AQMAAAAGBgAAAEcgKEdldC1QU0ZTY3JpcHRibG9jayAtbmFtZSAnQVJBSC5Td2FnZ2VyLkZ1bmN0aW9uUGFyYW1ldGVycycpLkludm9rZSgpIAs=</BA>
+              </MS>
+            </Obj>
+          </En>
+        </DCT>
+      </Obj>
+      <Obj N="Children" RefId="6">
+        <TN RefId="5">
+          <T>System.Collections.Generic.List`1[[PSModuleDevelopment.Template.TemplateItemBase, PSModuleDevelopment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <Obj RefId="7">
+            <TN RefId="6">
+              <T>PSModuleDevelopment.Template.TemplateItemFile</T>
+              <T>PSModuleDevelopment.Template.TemplateItemBase</T>
+              <T>System.Object</T>
+            </TN>
+            <ToString>PSModuleDevelopment.Template.TemplateItemFile</ToString>
+            <Props>
+              <S N="Value">function þnameþ {_x000D__x000A_    &lt;#_x000D__x000A_    .SYNOPSIS_x000D__x000A__x000D__x000A__x000D__x000A_    .DESCRIPTION_x000D__x000A__x000D__x000A_þ!dynamicscript_421103!þ_x000D__x000A__x000D__x000A_    .PARAMETER Connection_x000D__x000A_    Object of Class ARAHConnection, stores the authentication Token and the API Base-URL_x000D__x000A__x000D__x000A__x000D__x000A_    .PARAMETER EnableException_x000D__x000A_    If set to true, inner exceptions will be rethrown. Otherwise the an empty result will be returned._x000D__x000A__x000D__x000A_    .EXAMPLE_x000D__x000A_    ToBeFilledOut_x000D__x000A__x000D__x000A_    Including Remarks_x000D__x000A__x000D__x000A_    .NOTES_x000D__x000A_    General notes_x000D__x000A_    #&gt;_x000D__x000A_    param (_x000D__x000A_        [parameter(Mandatory)]_x000D__x000A_        $Connection,_x000D__x000A_        þ!dynamicscript_418781!þ_x000D__x000A_        $EnableException = $false_x000D__x000A_    )_x000D__x000A_    begin {_x000D__x000A_    }_x000D__x000A_    process {_x000D__x000A_    }_x000D__x000A_    end {_x000D__x000A_        Write-PSFMessage "Download ID: $($idArray -join ",")"_x000D__x000A_        $apiCallParameter = @{_x000D__x000A_            Connection = $Connection_x000D__x000A_            method     = "Post"_x000D__x000A_            Path       = "/v4/nodes/zip"_x000D__x000A_            Body       = @{_x000D__x000A_                nodeIds = $idArray_x000D__x000A_            }_x000D__x000A_        }_x000D__x000A__x000D__x000A_        $result = Invoke-DracoonAPI @apiCallParameter_x000D__x000A_        if ($result) {_x000D__x000A_            Invoke-PSFProtectedCommand -Action "Downloading" -Target $FileName -ScriptBlock {_x000D__x000A_                Invoke-WebRequest -Uri $result.downloadUrl -OutFile $FileName -ErrorAction Stop_x000D__x000A_            } -PSCmdlet $PSCmdlet -EnableException $EnableException -RetryCount 4 -RetryWait 5_x000D__x000A_        }_x000D__x000A_    }_x000D__x000A_}</S>
+              <B N="PlainText">true</B>
+              <Obj N="ContentParameterFlat" RefId="8">
+                <TNRef RefId="2" />
+                <LST>
+                  <S>name</S>
+                </LST>
+              </Obj>
+              <Obj N="ContentParameterScript" RefId="9">
+                <TNRef RefId="2" />
+                <LST>
+                  <S>dynamicscript_421103</S>
+                  <S>dynamicscript_418781</S>
+                </LST>
+              </Obj>
+              <S N="Name">þnameþ.ps1</S>
+              <S N="RelativePath"></S>
+              <S N="Identifier">þ</S>
+              <Obj N="FileSystemParameterFlat" RefId="10">
+                <TNRef RefId="2" />
+                <LST>
+                  <S>name</S>
+                </LST>
+              </Obj>
+              <Obj N="FileSystemParameterScript" RefId="11">
+                <TNRef RefId="2" />
+                <LST />
+              </Obj>
+            </Props>
+            <MS>
+              <BA N="SerializationData">AAEAAAD/////AQAAAAAAAAAMAgAAAEpQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAALVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVJdGVtRmlsZQkAAAAFVmFsdWUJUGxhaW5UZXh0FENvbnRlbnRQYXJhbWV0ZXJGbGF0FkNvbnRlbnRQYXJhbWV0ZXJTY3JpcHQETmFtZQxSZWxhdGl2ZVBhdGgKSWRlbnRpZmllchdGaWxlU3lzdGVtUGFyYW1ldGVyRmxhdBlGaWxlU3lzdGVtUGFyYW1ldGVyU2NyaXB0AQADAwEBAQMDAX9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1df1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV1/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXX9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dAgAAAAYDAAAAvQpmdW5jdGlvbiDDvm5hbWXDviB7DQogICAgPCMNCiAgICAuU1lOT1BTSVMNCg0KDQogICAgLkRFU0NSSVBUSU9ODQoNCsO+IWR5bmFtaWNzY3JpcHRfNDIxMTAzIcO+DQoNCiAgICAuUEFSQU1FVEVSIENvbm5lY3Rpb24NCiAgICBPYmplY3Qgb2YgQ2xhc3MgQVJBSENvbm5lY3Rpb24sIHN0b3JlcyB0aGUgYXV0aGVudGljYXRpb24gVG9rZW4gYW5kIHRoZSBBUEkgQmFzZS1VUkwNCg0KDQogICAgLlBBUkFNRVRFUiBFbmFibGVFeGNlcHRpb24NCiAgICBJZiBzZXQgdG8gdHJ1ZSwgaW5uZXIgZXhjZXB0aW9ucyB3aWxsIGJlIHJldGhyb3duLiBPdGhlcndpc2UgdGhlIGFuIGVtcHR5IHJlc3VsdCB3aWxsIGJlIHJldHVybmVkLg0KDQogICAgLkVYQU1QTEUNCiAgICBUb0JlRmlsbGVkT3V0DQoNCiAgICBJbmNsdWRpbmcgUmVtYXJrcw0KDQogICAgLk5PVEVTDQogICAgR2VuZXJhbCBub3Rlcw0KICAgICM+DQogICAgcGFyYW0gKA0KICAgICAgICBbcGFyYW1ldGVyKE1hbmRhdG9yeSldDQogICAgICAgICRDb25uZWN0aW9uLA0KICAgICAgICDDviFkeW5hbWljc2NyaXB0XzQxODc4MSHDvg0KICAgICAgICAkRW5hYmxlRXhjZXB0aW9uID0gJGZhbHNlDQogICAgKQ0KICAgIGJlZ2luIHsNCiAgICB9DQogICAgcHJvY2VzcyB7DQogICAgfQ0KICAgIGVuZCB7DQogICAgICAgIFdyaXRlLVBTRk1lc3NhZ2UgIkRvd25sb2FkIElEOiAkKCRpZEFycmF5IC1qb2luICIsIikiDQogICAgICAgICRhcGlDYWxsUGFyYW1ldGVyID0gQHsNCiAgICAgICAgICAgIENvbm5lY3Rpb24gPSAkQ29ubmVjdGlvbg0KICAgICAgICAgICAgbWV0aG9kICAgICA9ICJQb3N0Ig0KICAgICAgICAgICAgUGF0aCAgICAgICA9ICIvdjQvbm9kZXMvemlwIg0KICAgICAgICAgICAgQm9keSAgICAgICA9IEB7DQogICAgICAgICAgICAgICAgbm9kZUlkcyA9ICRpZEFycmF5DQogICAgICAgICAgICB9DQogICAgICAgIH0NCg0KICAgICAgICAkcmVzdWx0ID0gSW52b2tlLURyYWNvb25BUEkgQGFwaUNhbGxQYXJhbWV0ZXINCiAgICAgICAgaWYgKCRyZXN1bHQpIHsNCiAgICAgICAgICAgIEludm9rZS1QU0ZQcm90ZWN0ZWRDb21tYW5kIC1BY3Rpb24gIkRvd25sb2FkaW5nIiAtVGFyZ2V0ICRGaWxlTmFtZSAtU2NyaXB0QmxvY2sgew0KICAgICAgICAgICAgICAgIEludm9rZS1XZWJSZXF1ZXN0IC1VcmkgJHJlc3VsdC5kb3dubG9hZFVybCAtT3V0RmlsZSAkRmlsZU5hbWUgLUVycm9yQWN0aW9uIFN0b3ANCiAgICAgICAgICAgIH0gLVBTQ21kbGV0ICRQU0NtZGxldCAtRW5hYmxlRXhjZXB0aW9uICRFbmFibGVFeGNlcHRpb24gLVJldHJ5Q291bnQgNCAtUmV0cnlXYWl0IDUNCiAgICAgICAgfQ0KICAgIH0NCn0BCQQAAAAJBQAAAAYGAAAADMO+bmFtZcO+LnBzMQYHAAAAAAYIAAAAAsO+CQkAAAAJCgAAAAQEAAAAf1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgYAAAgICQsAAAABAAAAAQAAAAEFAAAABAAAAAkMAAAAAgAAAAIAAAABCQAAAAQAAAAJDQAAAAEAAAABAAAAAQoAAAAEAAAACQ4AAAAAAAAAAAAAABELAAAABAAAAAYPAAAABG5hbWUNAxEMAAAABAAAAAYQAAAAFGR5bmFtaWNzY3JpcHRfNDIxMTAzBhEAAAAUZHluYW1pY3NjcmlwdF80MTg3ODENAhENAAAABAAAAAYSAAAABG5hbWUNAxEOAAAAAAAAAAs=</BA>
+            </MS>
+          </Obj>
+        </LST>
+      </Obj>
+    </Props>
+    <MS>
+      <BA N="SerializationData">AAEAAAD/////AQAAAAAAAAAMAgAAAEpQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAJVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGUKAAAABE5hbWUEVHlwZQdWZXJzaW9uC0Rlc2NyaXB0aW9uBkF1dGhvcglDcmVhdGVkT24EVGFncwpQYXJhbWV0ZXJzB1NjcmlwdHMIQ2hpbGRyZW4BBAMBAQADAwMDKVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVUeXBlAgAAAA5TeXN0ZW0uVmVyc2lvbg1/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXX9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dgAJTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5EaWN0aW9uYXJ5YDJbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV0sW1BTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuUGFyYW1ldGVyU2NyaXB0LCBQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dngFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1BTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVJdGVtQmFzZSwgUFNNb2R1bGVEZXZlbG9wbWVudCwgVmVyc2lvbj0yLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGxdXQIAAAAGAwAAAAxBUkFIRnVuY3Rpb24F/P///ylQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlRlbXBsYXRlVHlwZQEAAAAHdmFsdWVfXwAIAgAAAAAAAAAJBQAAAAYGAAAAAAYHAAAAElNhc2NoYSBTcGlla2VybWFubgDAZEsg2diICgkIAAAACQkAAAAJCgAAAAQFAAAADlN5c3RlbS5WZXJzaW9uBAAAAAZfTWFqb3IGX01pbm9yBl9CdWlsZAlfUmV2aXNpb24AAAAACAgICAEAAAAAAAAAAAAAAAAAAAAECAAAAH9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24GAAAICAkLAAAAAQAAAAEAAAAECQAAAIACU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuRGljdGlvbmFyeWAyW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldLFtQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlBhcmFtZXRlclNjcmlwdCwgUFNNb2R1bGVEZXZlbG9wbWVudCwgVmVyc2lvbj0yLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGxdXQQAAAAHVmVyc2lvbghDb21wYXJlcghIYXNoU2l6ZQ1LZXlWYWx1ZVBhaXJzAAMAAwgWU3lzdGVtLk9yZGluYWxDb21wYXJlcgiEAlN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLktleVZhbHVlUGFpcmAyW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldLFtQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlBhcmFtZXRlclNjcmlwdCwgUFNNb2R1bGVEZXZlbG9wbWVudCwgVmVyc2lvbj0yLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGxdXVtdAgAAAAkMAAAAAwAAAAkNAAAABAoAAACeAVN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbUFNNb2R1bGVEZXZlbG9wbWVudC5UZW1wbGF0ZS5UZW1wbGF0ZUl0ZW1CYXNlLCBQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24EAAAvUFNNb2R1bGVEZXZlbG9wbWVudC5UZW1wbGF0ZS5UZW1wbGF0ZUl0ZW1CYXNlW10CAAAACAgJDgAAAAEAAAABAAAAEQsAAAAEAAAABg8AAAAEbmFtZQ0DBAwAAAAWU3lzdGVtLk9yZGluYWxDb21wYXJlcgEAAAALX2lnbm9yZUNhc2UAAQEHDQAAAAABAAAAAgAAAAOCAlN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLktleVZhbHVlUGFpcmAyW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldLFtQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlBhcmFtZXRlclNjcmlwdCwgUFNNb2R1bGVEZXZlbG9wbWVudCwgVmVyc2lvbj0yLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGxdXQTw////ggJTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5LZXlWYWx1ZVBhaXJgMltbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XSxbUFNNb2R1bGVEZXZlbG9wbWVudC5UZW1wbGF0ZS5QYXJhbWV0ZXJTY3JpcHQsIFBTTW9kdWxlRGV2ZWxvcG1lbnQsIFZlcnNpb249Mi4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsXV0CAAAAA2tleQV2YWx1ZQEELFBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuUGFyYW1ldGVyU2NyaXB0AgAAAAYRAAAAFGR5bmFtaWNzY3JpcHRfNDIxMTAzCRIAAAAB7f////D///8GFAAAABRkeW5hbWljc2NyaXB0XzQxODc4MQkVAAAABw4AAAAAAQAAAAQAAAAELVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVJdGVtQmFzZQIAAAAJFgAAAA0DDBcAAABfU3lzdGVtLk1hbmFnZW1lbnQuQXV0b21hdGlvbiwgVmVyc2lvbj03LjEuMi4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTMxYmYzODU2YWQzNjRlMzUFEgAAACxQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlBhcmFtZXRlclNjcmlwdAIAAAAETmFtZQtTY3JpcHRCbG9jawEEO1N5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uU2NyaXB0QmxvY2tTZXJpYWxpemF0aW9uSGVscGVyFwAAAAIAAAAJEQAAAAkZAAAAARUAAAASAAAACRQAAAAJGwAAAAUWAAAALVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVJdGVtRmlsZQkAAAAFVmFsdWUJUGxhaW5UZXh0FENvbnRlbnRQYXJhbWV0ZXJGbGF0FkNvbnRlbnRQYXJhbWV0ZXJTY3JpcHQETmFtZQxSZWxhdGl2ZVBhdGgKSWRlbnRpZmllchdGaWxlU3lzdGVtUGFyYW1ldGVyRmxhdBlGaWxlU3lzdGVtUGFyYW1ldGVyU2NyaXB0AQADAwEBAQMDAX9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1df1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV1/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXX9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dAgAAAAYcAAAAvQpmdW5jdGlvbiDDvm5hbWXDviB7DQogICAgPCMNCiAgICAuU1lOT1BTSVMNCg0KDQogICAgLkRFU0NSSVBUSU9ODQoNCsO+IWR5bmFtaWNzY3JpcHRfNDIxMTAzIcO+DQoNCiAgICAuUEFSQU1FVEVSIENvbm5lY3Rpb24NCiAgICBPYmplY3Qgb2YgQ2xhc3MgQVJBSENvbm5lY3Rpb24sIHN0b3JlcyB0aGUgYXV0aGVudGljYXRpb24gVG9rZW4gYW5kIHRoZSBBUEkgQmFzZS1VUkwNCg0KDQogICAgLlBBUkFNRVRFUiBFbmFibGVFeGNlcHRpb24NCiAgICBJZiBzZXQgdG8gdHJ1ZSwgaW5uZXIgZXhjZXB0aW9ucyB3aWxsIGJlIHJldGhyb3duLiBPdGhlcndpc2UgdGhlIGFuIGVtcHR5IHJlc3VsdCB3aWxsIGJlIHJldHVybmVkLg0KDQogICAgLkVYQU1QTEUNCiAgICBUb0JlRmlsbGVkT3V0DQoNCiAgICBJbmNsdWRpbmcgUmVtYXJrcw0KDQogICAgLk5PVEVTDQogICAgR2VuZXJhbCBub3Rlcw0KICAgICM+DQogICAgcGFyYW0gKA0KICAgICAgICBbcGFyYW1ldGVyKE1hbmRhdG9yeSldDQogICAgICAgICRDb25uZWN0aW9uLA0KICAgICAgICDDviFkeW5hbWljc2NyaXB0XzQxODc4MSHDvg0KICAgICAgICAkRW5hYmxlRXhjZXB0aW9uID0gJGZhbHNlDQogICAgKQ0KICAgIGJlZ2luIHsNCiAgICB9DQogICAgcHJvY2VzcyB7DQogICAgfQ0KICAgIGVuZCB7DQogICAgICAgIFdyaXRlLVBTRk1lc3NhZ2UgIkRvd25sb2FkIElEOiAkKCRpZEFycmF5IC1qb2luICIsIikiDQogICAgICAgICRhcGlDYWxsUGFyYW1ldGVyID0gQHsNCiAgICAgICAgICAgIENvbm5lY3Rpb24gPSAkQ29ubmVjdGlvbg0KICAgICAgICAgICAgbWV0aG9kICAgICA9ICJQb3N0Ig0KICAgICAgICAgICAgUGF0aCAgICAgICA9ICIvdjQvbm9kZXMvemlwIg0KICAgICAgICAgICAgQm9keSAgICAgICA9IEB7DQogICAgICAgICAgICAgICAgbm9kZUlkcyA9ICRpZEFycmF5DQogICAgICAgICAgICB9DQogICAgICAgIH0NCg0KICAgICAgICAkcmVzdWx0ID0gSW52b2tlLURyYWNvb25BUEkgQGFwaUNhbGxQYXJhbWV0ZXINCiAgICAgICAgaWYgKCRyZXN1bHQpIHsNCiAgICAgICAgICAgIEludm9rZS1QU0ZQcm90ZWN0ZWRDb21tYW5kIC1BY3Rpb24gIkRvd25sb2FkaW5nIiAtVGFyZ2V0ICRGaWxlTmFtZSAtU2NyaXB0QmxvY2sgew0KICAgICAgICAgICAgICAgIEludm9rZS1XZWJSZXF1ZXN0IC1VcmkgJHJlc3VsdC5kb3dubG9hZFVybCAtT3V0RmlsZSAkRmlsZU5hbWUgLUVycm9yQWN0aW9uIFN0b3ANCiAgICAgICAgICAgIH0gLVBTQ21kbGV0ICRQU0NtZGxldCAtRW5hYmxlRXhjZXB0aW9uICRFbmFibGVFeGNlcHRpb24gLVJldHJ5Q291bnQgNCAtUmV0cnlXYWl0IDUNCiAgICAgICAgfQ0KICAgIH0NCn0BCR0AAAAJHgAAAAYfAAAADMO+bmFtZcO+LnBzMQkGAAAABiEAAAACw74JIgAAAAkjAAAABRkAAAA7U3lzdGVtLk1hbmFnZW1lbnQuQXV0b21hdGlvbi5TY3JpcHRCbG9ja1NlcmlhbGl6YXRpb25IZWxwZXIBAAAAClNjcmlwdFRleHQBFwAAAAYkAAAATCAoR2V0LVBTRlNjcmlwdGJsb2NrIC1uYW1lICdBUkFILlN3YWdnZXIuRnVuY3Rpb25QYXJhbWV0ZXJzLkhlbHAnKS5JbnZva2UoKSABGwAAABkAAAAGJQAAAEcgKEdldC1QU0ZTY3JpcHRibG9jayAtbmFtZSAnQVJBSC5Td2FnZ2VyLkZ1bmN0aW9uUGFyYW1ldGVycycpLkludm9rZSgpIAEdAAAACAAAAAkmAAAAAQAAAAEAAAABHgAAAAgAAAAJJwAAAAIAAAACAAAAASIAAAAIAAAACSgAAAABAAAAAQAAAAEjAAAACAAAAAkpAAAAAAAAAAAAAAARJgAAAAQAAAAGKgAAAARuYW1lDQMRJwAAAAQAAAAJEQAAAAkUAAAADQIRKAAAAAQAAAAGLQAAAARuYW1lDQMRKQAAAAAAAAAL</BA>
+    </MS>
+  </Obj>
+</Objs>

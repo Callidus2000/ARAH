@@ -5,6 +5,7 @@ function Add-ARAHSwaggerPropertyToCollections {
         $PropertyName,
         $SwaggerObject,
         $SwaggerParams,
+        $RequiredPoperties,
         $TargetHashMap
     )
     $isReference = [bool]($PropertyObject.originalRef)
@@ -16,16 +17,19 @@ function Add-ARAHSwaggerPropertyToCollections {
         $TargetHashMap.add($PropertyName, $hash)
     }
     else {
+        $mandatory = ($PropertyName -in $RequiredPoperties)
         switch -regex ($PropertyObject.type) {
             '(string)|(boolean)' {
                 Write-PSFMessage "Simple Property Type: $($PropertyObject.type)" -Level Debug
                 $TargetHashMap.$PropertyName = $PropertyObject.type
                 $newParam = [PSCustomObject]@{
-                    name        = $PropertyName
-                    type        = $PropertyObject.type
-                    description = $PropertyObject.description
-                    example     = $PropertyObject.example
-                    enum        = $PropertyObject.enum
+                    name            = $PropertyName
+                    capitalizedName = ($PropertyName).substring(0, 1).toupper() + ($PropertyName).substring(1)
+                    type            = $PropertyObject.type
+                    description     = $PropertyObject.description
+                    example         = $PropertyObject.example
+                    enum            = $PropertyObject.enum
+                    mandatory       = $mandatory
                 }
                 Write-PSFMessage "newParam=$($newParam|ConvertTo-Json)" -Level Debug
                 $SwaggerParams.FunctionParameters += $newParam

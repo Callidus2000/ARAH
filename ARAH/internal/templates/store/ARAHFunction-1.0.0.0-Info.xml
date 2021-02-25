@@ -1,0 +1,41 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>PSModuleDevelopment.Template.TemplateInfo</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>ARAHFunction 1.0.0.0</ToString>
+    <Props>
+      <S N="Name">ARAHFunction</S>
+      <Obj N="Type" RefId="1">
+        <TN RefId="1">
+          <T>PSModuleDevelopment.Template.TemplateType</T>
+          <T>System.Enum</T>
+          <T>System.ValueType</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>File</ToString>
+        <I32>0</I32>
+      </Obj>
+      <Version N="Version">1.0.0.0</Version>
+      <S N="Description"></S>
+      <S N="Author">Sascha Spiekermann</S>
+      <DT N="CreatedOn">2021-02-25T00:00:00+01:00</DT>
+      <Nil N="Tags" />
+      <Obj N="Parameters" RefId="2">
+        <TN RefId="2">
+          <T>System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>name</S>
+        </LST>
+      </Obj>
+      <Nil N="Store" />
+      <Nil N="Path" />
+    </Props>
+    <MS>
+      <BA N="SerializationData">AAEAAAD/////AQAAAAAAAAAMAgAAAEpQU01vZHVsZURldmVsb3BtZW50LCBWZXJzaW9uPTIuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAKVBTTW9kdWxlRGV2ZWxvcG1lbnQuVGVtcGxhdGUuVGVtcGxhdGVJbmZvCgAAAAROYW1lBFR5cGUHVmVyc2lvbgtEZXNjcmlwdGlvbgZBdXRob3IJQ3JlYXRlZE9uBFRhZ3MKUGFyYW1ldGVycwVTdG9yZQRQYXRoAQQDAQEAAwMBASlQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlRlbXBsYXRlVHlwZQIAAAAOU3lzdGVtLlZlcnNpb24Nf1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV1/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXQIAAAAGAwAAAAxBUkFIRnVuY3Rpb24F/P///ylQU01vZHVsZURldmVsb3BtZW50LlRlbXBsYXRlLlRlbXBsYXRlVHlwZQEAAAAHdmFsdWVfXwAIAgAAAAAAAAAJBQAAAAYGAAAAAAYHAAAAElNhc2NoYSBTcGlla2VybWFubgDAZEsg2diICgkIAAAACgoEBQAAAA5TeXN0ZW0uVmVyc2lvbgQAAAAGX01ham9yBl9NaW5vcgZfQnVpbGQJX1JldmlzaW9uAAAAAAgICAgBAAAAAAAAAAAAAAAAAAAABAgAAAB/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXQMAAAAGX2l0ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgJCQAAAAEAAAABAAAAEQkAAAAEAAAABgoAAAAEbmFtZQ0DCw==</BA>
+    </MS>
+  </Obj>
+</Objs>

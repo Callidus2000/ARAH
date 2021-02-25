@@ -46,6 +46,7 @@
 		'Get-ARAHSwaggerSpec'
 		'Get-ARAHLog'
 		'Get-ARAHConnection'
+		'New-ARAHSwaggerFunction'
 		'Write-ARAHCallMessage'
 		)
 

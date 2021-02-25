@@ -20,10 +20,12 @@ function Get-ARAHCleanSwaggerInfo {
             'path' {
                 # Write-PSFMessage "param=$($param|ConvertTo-Json -Depth 20)" -Level Warning
                 $newParam = [PSCustomObject]@{
-                    name        = $param.name
-                    type        = $param.type
-                    description = $param.description
-                    enum        = $param.enum
+                    name            = $param.name
+                    capitalizedName = ($param.name).substring(0, 1).toupper() + ($param.name).substring(1)
+                    type            = $param.type
+                    description     = $param.description
+                    enum            = $param.enum
+                    mandatory       = ($param.required -eq 'true')
                 }
                 Write-PSFMessage "newParam=$($newParam|ConvertTo-Json)" -Level Debug
                 $SwaggerParams.FunctionParameters += $newParam
