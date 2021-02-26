@@ -104,7 +104,10 @@
         }
         Write-ARAHCallMessage $restAPIParameter
         $response = Invoke-WebRequest @restAPIParameter
-        $result = $response.Content | ConvertFrom-Json
+        $result = $response.Content
+        if ($ContentType -like '*json*') {
+            $result=$result| ConvertFrom-Json
+        }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
         if ($EnablePaging -and $PagingHandler) {
