@@ -40,6 +40,7 @@
 
 	# Functions to export from this module
 	FunctionsToExport = @(
+		'Add-ARAHStringIntend'
 		'Invoke-ARAHRequest'
 		'Get-ARAHCleanSwaggerInfo'
 		'Get-ARAHSwaggerEndpoint'

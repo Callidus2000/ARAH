@@ -1,15 +1,25 @@
 ﻿function þnameþ {
     <#
     .SYNOPSIS
-
+þ{$swaggerInfo.summary | Add-ARAHStringIntend -Intend 4}þ
 
     .DESCRIPTION
+þ{$swaggerInfo.description | Add-ARAHStringIntend -Intend 4}þ
 
-þ{ (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() }þ
+þ{
+    $paramBlock = @()
+    foreach ($param in $swaggerInfo.functionParameters) {
+        # Build the Parameter-Settings
+        $paramBlock += ".PARAMETER $($param.capitalizedName)"
+        $paramBlock += "$($param.description)"
+        $paramBlock += ""
+    }
+    ($paramBlock -join "`r`n") | Add-ARAHStringIntend -Intend 4
+}þ
 
+þ{ #(Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() }þ
     .PARAMETER Connection
     Object of Class ARAHConnection, stores the authentication Token and the API Base-URL
-
 
     .PARAMETER EnableException
     If set to true, inner exceptions will be rethrown. Otherwise the an empty result will be returned.
@@ -25,7 +35,7 @@
     param (
         [parameter(Mandatory)]
         $Connection,
-        þ{ (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters').Invoke() }þ
+þ{ (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters').Invoke() }þ
         $EnableException = $false
     )
     begin {
