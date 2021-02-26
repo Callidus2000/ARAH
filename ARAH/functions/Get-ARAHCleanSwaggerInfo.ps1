@@ -1,11 +1,50 @@
-function Get-ARAHCleanSwaggerInfo {
+﻿function Get-ARAHCleanSwaggerInfo {
+    <#
+    .SYNOPSIS
+    Generates a HashMap with clean meta-information from a Swagger-definition.
+
+    .DESCRIPTION
+    Helper Function for Swagger Function Generation.
+    Generates a HashMap with clean meta-information from a Swagger-definition.
+
+    .PARAMETER SwaggerObject
+    The PSCustomObject which is based on the Swagger Information.
+    Can be generated with Get-ARAHSwaggerSpec
+
+    .PARAMETER Path
+    The API Path whose information is needed.
+
+    .PARAMETER Method
+    The api method.
+
+    .EXAMPLE
+    Get-ARAHCleanSwaggerInfo -SwaggerObject (Get-ARAHSwaggerSpec -Uri "https://dracoon.team/api/spec_v4/") -Path "/v4/config/info/defaults" -Method "get"
+
+    Returns the definition like:
+
+    Name                           Value
+    ----                           -----
+    functionParameters             {}
+    summary                        Ping
+    path                           /v4/auth/ping
+    method                         get
+    consumes
+    operationId                    ping
+    description                    ### Functional Description:...
+    headerParameter                {}
+    body
+    produces                       {text/plain}
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
+    [OutputType([HashTable])]
     param (
         $SwaggerObject,
         $Path,
         $Method
     )
-    $parameterArray = @()
     $currentObject = $SwaggerObject.paths.$Path.$Method
     $swaggerParams = @{
         headerParameter    = @()

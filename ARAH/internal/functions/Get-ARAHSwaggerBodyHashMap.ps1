@@ -1,5 +1,33 @@
-function Get-ARAHSwaggerBodyHashMap {
+﻿function Get-ARAHSwaggerBodyHashMap {
+    <#
+    .SYNOPSIS
+    Gets the body of the API call as a HashTable.
+
+    .DESCRIPTION
+    Internal Helper Function for Swagger Function Generation.
+
+    .PARAMETER SwaggerObject
+    The full Swagger Spec as a PSCustomObject.
+
+    .PARAMETER CurrentObject
+    The current focused part of the Spec, representing a single API-
+
+    .PARAMETER SwaggerParams
+    A HashTable with the already found parameters.
+
+    .PARAMETER OriginalRef
+    The reference Name.
+
+    .EXAMPLE
+    An example will be missing.
+
+    As the function is only used internally.
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
+    [OutputType([Hashtable])]
     param (
         $SwaggerObject,
         $CurrentObject,
@@ -16,7 +44,7 @@ function Get-ARAHSwaggerBodyHashMap {
         'object' {
             $propertyNames = $CurrentObject.properties.psobject.properties.name
             foreach ($propName in $propertyNames) {
-                Add-ARAHSwaggerPropertyToCollections -PropertyName $propName -PropertyObject $CurrentObject.properties.$propName -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -TargetHashMap $body -RequiredPoperties $CurrentObject.required
+                Add-ARAHSwaggerPropertyToCollection -PropertyName $propName -PropertyObject $CurrentObject.properties.$propName -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -TargetHashMap $body -RequiredPoperties $CurrentObject.required
             }
         }
         Default {

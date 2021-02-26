@@ -1,5 +1,39 @@
-function New-ARAHSwaggerFunction {
+﻿function New-ARAHSwaggerFunction {
+    <#
+    .SYNOPSIS
+    Creates a PowerShell function file which uses the Invoke-ARAHRequest functions for accessing an API.
+
+    .DESCRIPTION
+    Creates a PowerShell function file which uses the Invoke-ARAHRequest functions for accessing an API.
+
+    For this the Swagger-Spec is evaluated and based on this information the function is created with a PSMDModuleDevelopment template.
+    The user has to choose the API endpoint which should be used.
+
+    .PARAMETER SwaggerUri
+    The URI of the Swagger-Spec.
+
+    .PARAMETER SwaggerPath
+    The Filepath to a pre-downloaded Swagger-Spec.
+
+    .PARAMETER OutPath
+    In which folder shall the new PS1 file be saved?
+
+    .PARAMETER InvokeCommand
+    Optional parameter if an Invoke-ARAHRequest Proxy function should be used instead Invoke-ARAHRequest.
+
+    .PARAMETER Force
+    If set any existing PS1 file will be overwritten.
+
+    .EXAMPLE
+    New-ARAHSwaggerFunction -SwaggerUri "https://dracoon.team/api/spec_v4/" -OutPath "." -Force -InvokeCommand "Invoke-DracoonAPI"
+
+    Creates a new function in the current directory.
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
     param (
         [parameter(mandatory = $true, ParameterSetName = "uri")]
         $SwaggerUri,
@@ -23,7 +57,6 @@ function New-ARAHSwaggerFunction {
         $swaggerInfo = Get-ARAHCleanSwaggerInfo -SwaggerObject $swaggerObj -path $targetAPI."API-Path" -Method $targetAPI.Method
         # Write-PSFMessage -Level Host "$($cleanInfo|convertto-json -Depth 10)"
         # New-PSMDTemplate -TemplateName ARAHFunction -OutStore MyStore -FilePath $PSScriptRoot\þnameþ.ps1 -Force
-        $global:hubba = $swaggerInfo
         $templateParameter = @{
             name    = $swaggerInfo.operationId
             method  = $swaggerInfo.method

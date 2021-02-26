@@ -1,4 +1,26 @@
 ﻿function Add-ARAHStringIntend {
+    <#
+    .SYNOPSIS
+    Intend a provided text with spaces.
+
+    .DESCRIPTION
+    Helper Function for Swagger Function Generation.
+    Intend a provided text with spaces.
+
+    .PARAMETER Text
+    The original text.
+
+    .PARAMETER Intend
+    How many spaces should be used for intendation?
+
+    .EXAMPLE
+    "An example" | Add-ARAHStringIntend -Intend 4
+
+    Returns "    An example"
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
@@ -12,16 +34,10 @@
     }
 
     process {
-        $newText = $Text -replace '(?m)^', (' ' * $Intend)
-        Write-PSFMessage "Text=$Text"
-        Write-PSFMessage "newText=$newText"
-        # $returnStrings += $newText # -replace '(?m)^', (' ' * $Intend)
-        $returnStrings += $Text # -replace '(?m)^', (' ' * $Intend)
+        $returnStrings += $Text
     }
 
     end {
-        # Write-PSFMessage "returnStrings=$returnStrings"
-        # $returnStrings #-replace '(?m)^', (' ' * $Intend)
         $returnStrings -replace '(?m)^', (' ' * $Intend)
     }
 }

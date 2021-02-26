@@ -20,6 +20,7 @@
     General notes
     #>
     [CmdletBinding()]
+    [OutputType([ARAHConnection])]
     param (
         [String]$Url,
         [String]$APISubPath

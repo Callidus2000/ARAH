@@ -1,4 +1,38 @@
-function Add-ARAHSwaggerPropertyToCollections {
+﻿function Add-ARAHSwaggerPropertyToCollection {
+    <#
+    .SYNOPSIS
+    Adds a new Swagger Properties to the existing collections.
+
+    .DESCRIPTION
+    Internal Helper Function for Swagger Function Generation.
+    Adds new Swagger Properties to the existing collections.
+
+    .PARAMETER PropertyObject
+    The Swagger Property.
+
+    .PARAMETER PropertyName
+    The Name of the property
+
+    .PARAMETER SwaggerObject
+    The full Swagger Spec as a PSCustomObject.
+
+    .PARAMETER SwaggerParams
+    A HashTable with the already found parameters.
+
+    .PARAMETER RequiredPoperties
+    An array of the property names of all mandatory properties.
+
+    .PARAMETER TargetHashMap
+    The target HashMap for the property, most times a HashTable which represents the body parameter.
+
+    .EXAMPLE
+    An example will be missing.
+
+    As the function is only used internally.
+
+    .NOTES
+    General notes
+    #>
     [CmdletBinding()]
     param (
         $PropertyObject,

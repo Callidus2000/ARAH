@@ -1,4 +1,4 @@
-Set-PSFScriptblock -Name 'ARAH.Swagger.FunctionParameters' -Scriptblock {
+﻿Set-PSFScriptblock -Name 'ARAH.Swagger.FunctionParameters' -Scriptblock {
     $paramBlock = @()
     foreach ($param in $swaggerInfo.functionParameters) {
         # Build the Parameter-Settings
