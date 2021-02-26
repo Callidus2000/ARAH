@@ -130,6 +130,11 @@ Invoke-ARAHRequest @apiCallParameter
 ```
 ##### Example Source [Get-GiteaOrganisation.ps1](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Get-GiteaOrganisation.ps1)
 This takes away all the clobber of checking parameters for `$null` values and furthermore.
+### Important: AutoCreation available!
+Since v1.1.0 it is possible to create API functions based on an existing Swagger Spec. Until documented in detail take a look a the integrated help:
+```powershell
+Get-Help New-ARAHSwaggerFunction
+```
 
 ### Optional Step: Create your own Invoke-* Proxy
 If you have got the need to extend the functionality of `Invoke-ARAHRequest` (e.g. modifying the request before it is sent) you can create your own proxy function with defined endpoints. For example the [Invoke-GiteaAPI](https://github.com/Callidus2000/PSGitea/blob/master/Gitea/functions/Invoke-GiteaAPI.ps1) uses the same base technique as Invoke-ARAHRequest but enables Paging of provided data with the help of a predefined ScriptBlock.
