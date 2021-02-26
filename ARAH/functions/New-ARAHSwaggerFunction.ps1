@@ -7,16 +7,15 @@ function New-ARAHSwaggerFunction {
         $SwaggerPath,
         [parameter(mandatory = $true)]
         $OutPath,
+        [parameter(mandatory = $false)]
+        $InvokeCommand = "Invoke-ARAHRequest",
         [switch]$Force
     )
-    Write-PSFMessage "PSCmdlet.ParameterSetName=$($PSCmdlet.ParameterSetName)"
-    $swaggerFile = "C:\DEV\odin.git\PSPlayground\Swagger\Gitea-swagger.v1.json"
-    $swaggerFile = "C:\DEV\odin.git\PSPlayground\Swagger\Dracoon.json"
     if ($PSCmdlet.ParameterSetName -eq 'uri') {
-        $swaggerObj = Get-ARAHSwaggerSpec -Uri $swaggerFile
+        $swaggerObj = Get-ARAHSwaggerSpec -Uri $SwaggerUri
     }
     else {
-        $swaggerObj = Get-ARAHSwaggerSpec -Path $swaggerFile
+        $swaggerObj = Get-ARAHSwaggerSpec -Path $SwaggerPath
     }
 
     $targetAPI = Get-ARAHSwaggerEndpoint -SwaggerObject $swaggerObj -chooseSingle
@@ -24,6 +23,30 @@ function New-ARAHSwaggerFunction {
         $swaggerInfo = Get-ARAHCleanSwaggerInfo -SwaggerObject $swaggerObj -path $targetAPI."API-Path" -Method $targetAPI.Method
         # Write-PSFMessage -Level Host "$($cleanInfo|convertto-json -Depth 10)"
         # New-PSMDTemplate -TemplateName ARAHFunction -OutStore MyStore -FilePath $PSScriptRoot\þnameþ.ps1 -Force
-        Invoke-PSMDTemplate -TemplateName ARAHFunction -OutPath $OutPath -Parameters @{name = $swaggerInfo.operationId } -Force:$Force
+        $global:hubba = $swaggerInfo
+        $templateParameter = @{
+            name    = $swaggerInfo.operationId
+            method  = $swaggerInfo.method
+            apiPath = $swaggerInfo.path
+            body    = ""
+            contentType    = $swaggerInfo.produces[0]
+            summary = ($swaggerInfo.summary | Add-ARAHStringIntend -Intend 4)
+            loggingSummary = $swaggerInfo.summary
+            description = ($swaggerInfo.description | Add-ARAHStringIntend -Intend 4)
+            invokeCommand  = $InvokeCommand
+        }
+        if ($swaggerInfo.body) {
+            $bodyDefinition = $swaggerInfo.body | ConvertTo-Json -Depth 15
+            $bodyDefinition = ($bodyDefinition -replace ': ', "= ")
+            $bodyDefinition = ($bodyDefinition -ireplace ',')
+            $bodyDefinition = ($bodyDefinition -replace '{', "@{")
+            $bodyDefinition = ($bodyDefinition -replace '\[', "@(") -replace '\]', ')'
+            $bodyDefinition = ($bodyDefinition -replace 'true', '$true') -replace 'false', '$false'
+            $bodyDefinition = ($bodyDefinition -replace '"(\w*)"=  "(\w*)"', '$1=  "$$$1"')
+            $bodyDefinition = ($bodyDefinition | Add-ARAHStringIntend -Intend 12).Trim(' ')
+            $bodyDefinition = "Body=$bodyDefinition"
+            $templateParameter.body = $bodyDefinition
+        }
+        Invoke-PSMDTemplate -TemplateName ARAHFunction -OutPath $OutPath -Parameters $templateParameter -Force:$Force
     }
 }

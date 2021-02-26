@@ -6,5 +6,5 @@ Set-PSFScriptblock -Name 'ARAH.Swagger.FunctionParameters.Help' -Scriptblock {
         $paramBlock += "$($param.description)"
         $paramBlock += ""
     }
-    ($paramBlock -join "`r`n") -replace '(?m)^',(' '*4)
+    ($paramBlock -join "`r`n") | Add-ARAHStringIntend -Intend 4
 }

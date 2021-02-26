@@ -1,23 +1,12 @@
 ﻿function þnameþ {
     <#
     .SYNOPSIS
-þ{$swaggerInfo.summary | Add-ARAHStringIntend -Intend 4}þ
+þsummaryþ
 
     .DESCRIPTION
-þ{$swaggerInfo.description | Add-ARAHStringIntend -Intend 4}þ
+þdescriptionþ
 
-þ{
-    $paramBlock = @()
-    foreach ($param in $swaggerInfo.functionParameters) {
-        # Build the Parameter-Settings
-        $paramBlock += ".PARAMETER $($param.capitalizedName)"
-        $paramBlock += "$($param.description)"
-        $paramBlock += ""
-    }
-    ($paramBlock -join "`r`n") | Add-ARAHStringIntend -Intend 4
-}þ
-
-þ{ #(Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() }þ
+þ{ (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters.Help').Invoke() }þ
     .PARAMETER Connection
     Object of Class ARAHConnection, stores the authentication Token and the API Base-URL
 
@@ -36,27 +25,25 @@
         [parameter(Mandatory)]
         $Connection,
 þ{ (Get-PSFScriptblock -name 'ARAH.Swagger.FunctionParameters').Invoke() }þ
-        $EnableException = $false
+        $EnableException = $true
     )
     begin {
     }
     process {
     }
     end {
-        Write-PSFMessage "Download ID: $($idArray -join ",")"
         $apiCallParameter = @{
             Connection = $Connection
-            method     = "Post"
-            Path       = "/v4/nodes/zip"
-            Body       = @{
-                nodeIds = $idArray
-            }
+            method     = "þmethodþ"
+            Path       = "þapiPathþ"
+            ContentType = "þcontentTypeþ"
+            þbodyþ
         }
 
         $result = Invoke-DracoonAPI @apiCallParameter
         if ($result) {
-            Invoke-PSFProtectedCommand -Action "Downloading" -Target $FileName -ScriptBlock {
-                Invoke-WebRequest -Uri $result.downloadUrl -OutFile $FileName -ErrorAction Stop
+            Invoke-PSFProtectedCommand -Action "þloggingSummaryþ" -Target $FileName -ScriptBlock {
+                þinvokeCommandþ @apiCallParameter
             } -PSCmdlet $PSCmdlet -EnableException $EnableException -RetryCount 4 -RetryWait 5
         }
     }
