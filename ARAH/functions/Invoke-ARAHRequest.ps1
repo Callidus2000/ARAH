@@ -89,6 +89,7 @@
         body        = ($Body | Remove-ARAHNullFromHashtable)
         Headers     = $connection.headers
         ContentType = $ContentType
+        WebSession  = $connection.WebSession
     }
     If ($Body) {
         $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json)
@@ -106,14 +107,14 @@
         $response = Invoke-WebRequest @restAPIParameter
         $result = $response.Content
         if ($ContentType -like '*json*') {
-            $result=$result| ConvertFrom-Json
+            $result = $result | ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
         if ($EnablePaging -and $PagingHandler) {
             Write-PSFMessage "MurkSiPu '$($response.Gettype())'"
             [PSFScriptBlock]$pagingHandlerScript = Get-PSFScriptBlock -Name $PagingHandler
-            $result=$pagingHandlerScript.InvokeEx($false, $true, $false)
+            $result = $pagingHandlerScript.InvokeEx($false, $true, $false)
         }
     }
     catch {

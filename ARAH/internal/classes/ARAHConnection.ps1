@@ -7,13 +7,16 @@
     [String]$AuthenticatedUser
     hidden[PSCredential]$Credential
     hidden[String]$ContentType
+    hidden[Microsoft.PowerShell.Commands.WebRequestSession]$WebSession
 
     # constructors
     ARAHConnection () {
         $this.Headers = @{}
+        $this.WebSession=[Microsoft.PowerShell.Commands.WebRequestSession]::new()
     }
     ARAHConnection ([String]$Url,[String]$APISubPath) {
         $this.Headers = @{}
+        $this.WebSession=[Microsoft.PowerShell.Commands.WebRequestSession]::new()
         Write-PSFMessage "Getting ARAH Server-Root for $Url, APISubPath=$APISubPath" -ModuleName ARAH -FunctionName "ARAHConnection[xx,xx]"
         if (!$APISubPath){
             $APISubPath=""
