@@ -35,7 +35,7 @@
         $callStack = (Get-PSCallStack | Select-Object -SkipLast 1 -ExpandProperty Command | Select-Object -Skip 1  )
         [Array]::Reverse($callStack)
         $callStackString = $callStack -join ">"
-        Write-PSFMessage "CallStack: $callStackString"
+        Write-PSFMessage  -Level Debug "CallStack: $callStackString"
         $apiLogString = ($modifiedAPICallParameter | ConvertTo-Json -Depth 7 -Compress:$compress)
         # Remove confidental data
         $apiLogString = $apiLogString -replace '"Bearer (\w{5})\w*"', '"Bearer $1******************"'

@@ -78,8 +78,8 @@
     )
     $uri = $connection.webServiceRoot + $path
     if ($URLParameter) {
-        Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path"
-        Write-PSFMessage "$($UrlParameter|ConvertTo-Json)"
+        Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
+        Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
         $parameterString = (Get-ARAHEncodedParameterString($URLParameter))
         $uri = $uri + '?' + $parameterString.trim("?")
     }
