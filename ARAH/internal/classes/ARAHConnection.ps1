@@ -13,10 +13,12 @@
     ARAHConnection () {
         $this.Headers = @{}
         $this.WebSession=[Microsoft.PowerShell.Commands.WebRequestSession]::new()
+        $this.ContentType = "application/json;charset=UTF-8"
     }
     ARAHConnection ([String]$Url,[String]$APISubPath) {
         $this.Headers = @{}
         $this.WebSession=[Microsoft.PowerShell.Commands.WebRequestSession]::new()
+        $this.ContentType = "application/json;charset=UTF-8"
         Write-PSFMessage "Getting ARAH Server-Root for $Url, APISubPath=$APISubPath" -ModuleName ARAH -FunctionName "ARAHConnection[xx,xx]"
         if (!$APISubPath){
             $APISubPath=""

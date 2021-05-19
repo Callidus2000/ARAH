@@ -28,7 +28,7 @@
     try {
         $compress=Get-PSFConfigValue -FullName 'ARAH.logging.compressRequests' -Fallback $true
         $modifiedAPICallParameter = $APICallParameter.Clone()
-        if ($modifiedAPICallParameter.Body -is [String]) {
+        if (($modifiedAPICallParameter.Body -is [String]) -and ($modifiedAPICallParameter.ContentType -like '*json*')) {
            $modifiedAPICallParameter.Body = $modifiedAPICallParameter.Body | ConvertFrom-Json
         }
         $modifiedAPICallParameter.Method = "$($modifiedAPICallParameter.Method)".ToUpper()

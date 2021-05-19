@@ -67,9 +67,8 @@
         [Microsoft.Powershell.Commands.WebRequestMethod]$Method,
         [parameter(Mandatory)]
         [string]$Path,
-        [Hashtable] $Body,
+        $Body,
         [Hashtable] $URLParameter,
-        [string]$ContentType = "application/json;charset=UTF-8",
         [string]$InFile,
         [bool]$EnableException = $true,
         [string]$RequestModifier,
@@ -77,6 +76,7 @@
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
+    $ContentType = $connection.ContentType
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
         Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
@@ -86,13 +86,17 @@
     $restAPIParameter = @{
         Uri         = $Uri
         method      = $Method
-        body        = ($Body | Remove-ARAHNullFromHashtable)
         Headers     = $connection.headers
         ContentType = $ContentType
         WebSession  = $connection.WebSession
+        Credential  = $connection.Credential
     }
     If ($Body) {
-        $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json)
+        switch ($Body.GetType().name) {
+            'Hashtable' { $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json) }
+            'String' { $restAPIParameter.body = $Body }
+            Default {Write-PSFMessage -Level Warning "Unknown Body-Type: $($Body.GetType().name)"}
+        }
     }
     If ($InFile) {
         $restAPIParameter.InFile = $InFile
