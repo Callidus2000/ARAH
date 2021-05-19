@@ -3,7 +3,7 @@
 	RootModule = 'ARAH.psm1'
 
 	# Version number of this module.
-	ModuleVersion = '1.1.1'
+	ModuleVersion = '1.2.1'
 
 	# ID used to uniquely identify this module
 	GUID = '5bf61bed-a3da-4550-949a-a869b8dc29c6'
