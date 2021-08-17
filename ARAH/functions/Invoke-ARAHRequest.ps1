@@ -111,7 +111,7 @@
         $response = Invoke-WebRequest @restAPIParameter
         $result = $response.Content
         if ($ContentType -like '*json*') {
-            $result = $result | ConvertFrom-Json
+            $result = [String]::new($result) | ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
