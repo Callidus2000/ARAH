@@ -9,6 +9,11 @@
     hidden[String]$ContentType
     hidden[Microsoft.PowerShell.Commands.WebRequestSession]$WebSession
 
+    # Attribut, welches bei $true dafür sorgt, dass die Response, welche kein Charset angibt, obwohl eines
+    # verwendet wird, mit dem Charset konvertiert wird.
+    [Bool]$OverrideResultEncoding=$false
+    [System.Text.Encoding]$Charset = [System.Text.Encoding]::UTF8
+
     # constructors
     ARAHConnection () {
         $this.Headers = @{}

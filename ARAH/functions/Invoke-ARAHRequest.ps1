@@ -95,7 +95,7 @@
         switch ($Body.GetType().name) {
             'Hashtable' { $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json) }
             'String' { $restAPIParameter.body = $Body }
-            Default {Write-PSFMessage -Level Warning "Unknown Body-Type: $($Body.GetType().name)"}
+            Default { Write-PSFMessage -Level Warning "Unknown Body-Type: $($Body.GetType().name)" }
         }
     }
     If ($InFile) {
@@ -109,9 +109,24 @@
         }
         Write-ARAHCallMessage $restAPIParameter
         $response = Invoke-WebRequest @restAPIParameter
+        if ($PSBoundParameters.Debug) {
+            $global:invokeARAHrestAPIParameter = $restAPIParameter
+            Write-PSFMessage "Saving restAPIParameter to `$global:invokeARAHrestAPIParameter" -level Debug
+            $global:invokeARAHresponse = $response
+            Write-PSFMessage "Saving response to `$global:invokeARAHresponse" -level Debug
+        }
+        # $global:rap = $restAPIParameter
         $result = $response.Content
+        if ($result -is [byte[]]){
+            Write-PSFMessage "Converting Byte[] into String, using charset $($connection.Charset.EncodingName)"
+            $result=$connection.Charset.GetString($result)
+        }
+        if ($connection.OverrideResultEncoding){
+            Write-PSFMessage "Response is handled as $([System.Text.Encoding]::Default.EncodingName), but is in reality $($connection.Charset.EncodingName); Recoding started"
+            $result = $connection.Charset.GetString([System.Text.Encoding]::Default.getBytes($result))
+        }
         if ($ContentType -like '*json*') {
-            $result = [System.Text.Encoding]::UTF8.GetString($result) | ConvertFrom-Json
+            $result = $result|ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
