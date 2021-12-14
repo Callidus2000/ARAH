@@ -33,7 +33,8 @@
     HTTP Method, Get/Post/Delete/Put/...
 
     .PARAMETER ContentType
-    HTTP-ContentType, defaults to "application/json;charset=UTF-8"
+    HTTP-ContentType, defaults to "application/json;charset=UTF-8" and is provided by an
+    attribute of the Connection.
     See Publish-ARAHFile for usage.
 
     .PARAMETER InFile
@@ -70,13 +71,20 @@
         $Body,
         [Hashtable] $URLParameter,
         [string]$InFile,
+        [string]$ContentType,
         [bool]$EnableException = $true,
         [string]$RequestModifier,
         [string]$PagingHandler,
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
-    $ContentType = $connection.ContentType
+    if ($ContentType){
+        $effectiveContentType = $ContentType
+        Write-PSFMessage "Using contentType from Parameter: $effectiveContentType"
+    }else {
+        $effectiveContentType = $connection.ContentType
+        Write-PSFMessage "Using contentType from Connection: $effectiveContentType"
+    }
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
         Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
@@ -87,7 +95,7 @@
         Uri         = $Uri
         method      = $Method
         Headers     = $connection.headers
-        ContentType = $ContentType
+        ContentType = $effectiveContentType
         WebSession  = $connection.WebSession
         Credential  = $connection.Credential
     }
@@ -125,7 +133,7 @@
             Write-PSFMessage "Response is handled as $([System.Text.Encoding]::Default.EncodingName), but is in reality $($connection.Charset.EncodingName); Recoding started"
             $result = $connection.Charset.GetString([System.Text.Encoding]::Default.getBytes($result))
         }
-        if ($ContentType -like '*json*') {
+        if ($effectiveContentType -like '*json*') {
             $result = $result|ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
