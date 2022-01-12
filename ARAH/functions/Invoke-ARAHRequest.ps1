@@ -78,10 +78,11 @@
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
-    if ($ContentType){
+    if ($ContentType) {
         $effectiveContentType = $ContentType
         Write-PSFMessage "Using contentType from Parameter: $effectiveContentType"
-    }else {
+    }
+    else {
         $effectiveContentType = $connection.ContentType
         Write-PSFMessage "Using contentType from Connection: $effectiveContentType"
     }
@@ -124,17 +125,18 @@
             Write-PSFMessage "Saving response to `$global:invokeARAHresponse" -level Debug
         }
         # $global:rap = $restAPIParameter
+        # $global:rapRes = $response
         $result = $response.Content
-        if ($result -is [byte[]]){
+        if ($result -is [byte[]]) {
             Write-PSFMessage "Converting Byte[] into String, using charset $($connection.Charset.EncodingName)"
-            $result=$connection.Charset.GetString($result)
+            $result = $connection.Charset.GetString($result)
         }
-        if ($connection.OverrideResultEncoding){
-            Write-PSFMessage "Response is handled as $([System.Text.Encoding]::Default.EncodingName), but is in reality $($connection.Charset.EncodingName); Recoding started"
-            $result = $connection.Charset.GetString([System.Text.Encoding]::Default.getBytes($result))
+        if ($connection.OverrideResultEncoding) {
+            Write-PSFMessage "Response is handled as $([System.Text.Encoding]::GetEncoding(28591).EncodingName), but is in reality $($connection.Charset.EncodingName); Recoding started"
+            $result = $connection.Charset.GetString([System.Text.Encoding]::GetEncoding(28591).getBytes($result))
         }
         if ($effectiveContentType -like '*json*') {
-            $result = $result|ConvertFrom-Json
+            $result = $result | ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
