@@ -32,6 +32,8 @@
         )
     }
     $newHash=$hash  | Remove-ARAHNullFromHashtable
+
+    Returns a hashtable without the MiddleName
     .NOTES
     General notes
     #>

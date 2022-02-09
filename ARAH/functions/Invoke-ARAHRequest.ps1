@@ -55,12 +55,17 @@
 
     .EXAMPLE
     $result = Invoke-ARAH -connection $this -path "/v4/auth/login" -method POST -body @{login = $credentials.UserName; password = $credentials.GetNetworkCredential().Password; language = "1"; authType = "sql" } -hideparameters $true
+
     Login to the service
 
     .NOTES
-    General notes
+    If the -Debug switch is used, Request and Response are saved for inspection in
+    $global:invokeARAHrestAPIParameter
+    $global:invokeARAHresponse
     #>
-
+    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
     param (
         [parameter(Mandatory)]
         [ARAHConnection]$Connection,

@@ -14,6 +14,7 @@
 
     .EXAMPLE
     Get-ARAHConnection -Url "my.server.de/" -APISubPath "/api/v4"
+
     Returns an object with .WebServiceRoot -eq "https://my.server.de/api/v4"
 
     .NOTES

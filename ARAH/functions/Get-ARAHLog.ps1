@@ -14,6 +14,7 @@
 
     .EXAMPLE
     Get-ARAHLog -Last 5
+
     Retrieves the last 5 logs.
 
     .NOTES

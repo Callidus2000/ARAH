@@ -11,10 +11,12 @@
 
     .EXAMPLE
     Write-ARAHCallMessage $restAPIParameter
+
     Logs the given parameter to the PSFLogging with Tag "APICALL"
 
     .EXAMPLE
     Get-PSFMessage -Tag "APICALL" |Select-Object -Last 1 -Property TargetObject,Message|Format-List
+
     Retrieves the last API call.
 
     .NOTES

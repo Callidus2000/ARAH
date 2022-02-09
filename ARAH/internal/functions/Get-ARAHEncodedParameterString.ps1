@@ -11,6 +11,7 @@
 
     .EXAMPLE
     Get-ARAHEncodedParameterString -parameter @{key1="value1";key2="value2"}
+
     Returns the string: key1=value1&key2=value2
 
     .NOTES
