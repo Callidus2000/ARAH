@@ -1,32 +1,32 @@
 ﻿@{
 	# Script module or binary module file associated with this manifest
-	RootModule = 'ARAH.psm1'
+	RootModule        = 'ARAH.psm1'
 
 	# Version number of this module.
-	ModuleVersion = '1.3.1'
+	ModuleVersion     = '1.3.2'
 
 	# ID used to uniquely identify this module
-	GUID = '5bf61bed-a3da-4550-949a-a869b8dc29c6'
+	GUID              = '5bf61bed-a3da-4550-949a-a869b8dc29c6'
 
 	# Author of this module
-	Author = 'Sascha Spiekermann'
+	Author            = 'Sascha Spiekermann'
 
 	# Company or vendor of this module
-	CompanyName = 'MyCompany'
+	CompanyName       = 'MyCompany'
 
 	# Copyright statement for this module
-	Copyright = 'Copyright (c) 2021 Sascha Spiekermann'
+	Copyright         = 'Copyright (c) 2021 Sascha Spiekermann'
 
 	# Description of the functionality provided by this module
-	Description = 'Advanced REST API Helper'
+	Description       = 'Advanced REST API Helper'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion = '5.0'
 
 	# Modules that must be imported into the global environment prior to importing
 	# this module
-	RequiredModules = @(
-		@{ ModuleName='PSFramework'; ModuleVersion='1.4.149' }
+	RequiredModules   = @(
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.6.214' }
 	)
 
 	# Assemblies that must be loaded prior to importing this module
@@ -49,25 +49,25 @@
 		'Get-ARAHConnection'
 		'New-ARAHSwaggerFunction'
 		'Write-ARAHCallMessage'
-		)
+	)
 
 	# Cmdlets to export from this module
-	CmdletsToExport = ''
+	CmdletsToExport   = ''
 
 	# Variables to export from this module
 	VariablesToExport = ''
 
 	# Aliases to export from this module
-	AliasesToExport = ''
+	AliasesToExport   = ''
 
 	# List of all modules packaged with this module
-	ModuleList = @()
+	ModuleList        = @()
 
 	# List of all files packaged with this module
-	FileList = @()
+	FileList          = @()
 
 	# Private data to pass to the module specified in ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-	PrivateData = @{
+	PrivateData       = @{
 
 		#Support for PowerShellGet galleries.
 		PSData = @{
