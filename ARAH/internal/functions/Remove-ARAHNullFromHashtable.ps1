@@ -48,7 +48,7 @@
         if ($InputHashmap) {
             $tempString = $InputHashmap | ConvertTo-Json -Depth 15
             Write-PSFMessage -Level Debug "Entferne null Values aus $tempString"
-            $tempString = $tempString -replace '"\w+?"\s*:\s*null,?'
+            $tempString = $tempString -replace '"\w+?"\s*:\s*null,?' -replace ',\s*}','}'
             Write-PSFMessage -Level Debug "Ergebnis: $tempString"
             if ($Json) { $tempString }else {
                 Write-PSFMessage -Level Debug "Erzeuge HashTable"
