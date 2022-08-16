@@ -29,16 +29,17 @@
     )
     try {
         $compress=Get-PSFConfigValue -FullName 'ARAH.logging.compressRequests' -Fallback $true
+        $jsonDepth = Get-PSFConfigValue -FullName 'ARAH.logging.jsonDepth' -Fallback 7
         $modifiedAPICallParameter = $APICallParameter.Clone()
         if (($modifiedAPICallParameter.Body -is [String]) -and ($modifiedAPICallParameter.ContentType -like '*json*')) {
-           $modifiedAPICallParameter.Body = $modifiedAPICallParameter.Body | ConvertFrom-Json
+            $modifiedAPICallParameter.Body = $modifiedAPICallParameter.Body | ConvertFrom-Json
         }
         $modifiedAPICallParameter.Method = "$($modifiedAPICallParameter.Method)".ToUpper()
         $callStack = (Get-PSCallStack | Select-Object -SkipLast 1 -ExpandProperty Command | Select-Object -Skip 1  )
         [Array]::Reverse($callStack)
         $callStackString = $callStack -join ">"
         Write-PSFMessage  -Level Debug "CallStack: $callStackString"
-        $apiLogString = ($modifiedAPICallParameter | ConvertTo-Json -Depth 7 -Compress:$compress)
+        $apiLogString = ($modifiedAPICallParameter | ConvertTo-Json -Depth $jsonDepth -Compress:$compress)
         # Remove confidental data
         $apiLogString = $apiLogString -replace '"Bearer (\w{5})\w*"', '"Bearer $1******************"'
         $apiLogString = $apiLogString -replace '("password":\s*").*"', '$1***********"'
