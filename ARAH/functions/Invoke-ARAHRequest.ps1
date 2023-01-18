@@ -41,6 +41,11 @@
     File which should be transferred during the Request.
     See Publish-ARAHFile for usage.
 
+    .PARAMETER SkipCheck
+    Array of checks which should be skipped while using Invoke-WebRequest.
+    Possible Values 'CertificateCheck', 'HttpErrorCheck', 'HeaderValidation'.
+    If neccessary by default for the connection set $connection.SkipCheck
+
     .PARAMETER EnablePaging
     If the API makes use of paging (therefor of limit/offset URLParameter) setting EnablePaging to $true will not return the raw data but a combination of all data sets.
 
@@ -78,6 +83,8 @@
         [string]$InFile,
         [string]$ContentType,
         [bool]$EnableException = $true,
+        [ValidateSet('CertificateCheck', 'HttpErrorCheck', 'HeaderValidation')]
+        [String[]]$SkipCheck = @(),
         [string]$RequestModifier,
         [string]$PagingHandler,
         [switch]$EnablePaging
@@ -91,6 +98,7 @@
         $effectiveContentType = $connection.ContentType
         Write-PSFMessage "Using contentType from Connection: $effectiveContentType"
     }
+    $SkipCheckAndValidation = ($SkipCheck + $Connection.SkipCheck) | Select-Object -Unique
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
         Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
@@ -104,6 +112,10 @@
         ContentType = $effectiveContentType
         WebSession  = $connection.WebSession
         Credential  = $connection.Credential
+    }
+    if ($SkipCheckAndValidation.Count -gt 0) {
+        Write-PSFMessage "Skipping the following checks during http request: $($SkipCheckAndValidation|Join-String ',')"
+        $SkipCheckAndValidation | ForEach-Object { $restAPIParameter."Skip$_" = $true }
     }
     If ($Body) {
         switch ($Body.GetType().name) {

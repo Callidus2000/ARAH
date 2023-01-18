@@ -9,10 +9,14 @@
     hidden[String]$ContentType
     hidden[Microsoft.PowerShell.Commands.WebRequestSession]$WebSession
 
-    # Attribut, welches bei $true dafür sorgt, dass die Response, welche kein Charset angibt, obwohl eines
-    # verwendet wird, mit dem Charset konvertiert wird.
+    # attribute which, if $true, causes the response which does not specify a charset, even though one is
+    # is used, will be converted with the charset.
     [Bool]$OverrideResultEncoding=$false
     [System.Text.Encoding]$Charset = [System.Text.Encoding]::UTF8
+
+    # Should Invoke-WebRequest Skip some checks?
+    [ValidateSet('CertificateCheck', 'HttpErrorCheck', 'HeaderValidation')]
+    [String[]]$SkipCheck=@()
 
     # constructors
     ARAHConnection () {
