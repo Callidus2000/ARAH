@@ -119,7 +119,18 @@
     }
     If ($Body) {
         switch ($Body.GetType().name) {
-            'Hashtable' { $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json) }
+            'Hashtable' {
+                switch -Regex ($effectiveContentType) {
+                    'json' {
+                        Write-PSFMessage "Converting HashTable body param to json-string"
+                        $restAPIParameter.body = ($Body | Remove-ARAHNullFromHashtable -Json)
+                    }
+                    default {
+                        Write-PSFMessage "No special handling for HashTable type body param, passing HashTable directly to Invoke-WebRequest -Body"
+                        $restAPIParameter.body = $Body
+                    }
+                }
+            }
             'String' { $restAPIParameter.body = $Body }
             Default { Write-PSFMessage -Level Warning "Unknown Body-Type: $($Body.GetType().name)" }
         }
