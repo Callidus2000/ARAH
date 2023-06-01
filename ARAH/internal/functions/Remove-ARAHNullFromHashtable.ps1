@@ -46,7 +46,7 @@
 
     process {
         if ($InputHashmap) {
-            $tempString = $InputHashmap | ConvertTo-Json -Depth 15
+            $tempString = $InputHashmap | ConvertTo-Json -WarningAction SilentlyContinue -Depth 15
             Write-PSFMessage -Level Debug "Entferne null Values aus $tempString"
             $tempString = $tempString -replace '"\w+?"\s*:\s*null,?' -replace ',\s*}','}'
             Write-PSFMessage -Level Debug "Ergebnis: $tempString"

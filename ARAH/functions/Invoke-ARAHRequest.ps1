@@ -101,7 +101,7 @@
     $SkipCheckAndValidation = ($SkipCheck + $Connection.SkipCheck) | Select-Object -Unique
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
-        Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
+        Write-PSFMessage "$($UrlParameter| ConvertTo-Json -WarningAction SilentlyContinue)" -Level Debug
         $parameterString = (Get-ARAHEncodedParameterString($URLParameter))
         $uri = $uri + '?' + $parameterString.trim("?")
     }
@@ -167,7 +167,7 @@
             $result = $result | ConvertFrom-Json
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
-        Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
+        Write-PSFMessage -Level Debug "result= $($result| ConvertTo-Json -WarningAction SilentlyContinue -Depth 5)"
         if ($EnablePaging -and $PagingHandler) {
             Write-PSFMessage "MurkSiPu '$($response.Gettype())'"
             [PSFScriptBlock]$pagingHandlerScript = Get-PSFScriptBlock -Name $PagingHandler

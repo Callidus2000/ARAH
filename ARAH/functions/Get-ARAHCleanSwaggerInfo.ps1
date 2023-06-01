@@ -50,14 +50,14 @@
         headerParameter    = @()
         functionParameters = @()
     }
-    Write-PSFMessage "currentObject=$($currentObject|ConvertTo-Json -Depth 20)"
+    Write-PSFMessage "currentObject=$($currentObject| ConvertTo-Json -WarningAction SilentlyContinue -Depth 20)"
     foreach ($param in $currentObject.parameters) {
         switch ($param.in) {
             'header' {
                 $swaggerParams.headerParameter += $param
             }
             'path' {
-                # Write-PSFMessage "param=$($param|ConvertTo-Json -Depth 20)" -Level Warning
+                # Write-PSFMessage "param=$($param| ConvertTo-Json -WarningAction SilentlyContinue -Depth 20)" -Level Warning
                 $newParam = [PSCustomObject]@{
                     name            = $param.name
                     capitalizedName = ($param.name).substring(0, 1).toupper() + ($param.name).substring(1)
@@ -66,17 +66,17 @@
                     enum            = $param.enum
                     mandatory       = ($param.required -eq 'true')
                 }
-                Write-PSFMessage "newParam=$($newParam|ConvertTo-Json)" -Level Debug
+                Write-PSFMessage "newParam=$($newParam| ConvertTo-Json -WarningAction SilentlyContinue)" -Level Debug
                 $SwaggerParams.FunctionParameters += $newParam
             }
             'body' {
                 Write-PSFMessage "Verarbeite Body-Parameter"
-                Write-PSFMessage "param=$($param|ConvertTo-Json -Depth 20)" -Level Debug
+                Write-PSFMessage "param=$($param| ConvertTo-Json -WarningAction SilentlyContinue -Depth 20)" -Level Debug
                 $originalRef = $param.schema.'$ref' -replace '#\/(\w*)\/(\w*)', '$2'
                 $body = Get-ARAHSwaggerBodyHashMap -SwaggerParams $swaggerParams -SwaggerObject $swaggerObj -OriginalRef $originalRef
             }
             Default {
-                Write-PSFMessage "param=$($param|ConvertTo-Json -Depth 20)" -Level Warning
+                Write-PSFMessage "param=$($param| ConvertTo-Json -WarningAction SilentlyContinue -Depth 20)" -Level Warning
             }
         }
     }
@@ -92,6 +92,6 @@
         functionParameters = $SwaggerParams.functionParameters
         body               = $body
     }
-    # Write-PSFMessage "cleanInfo=$($cleanInfo|ConvertTo-Json -depth 10)"
+    # Write-PSFMessage "cleanInfo=$($cleanInfo| ConvertTo-Json -WarningAction SilentlyContinue -depth 10)"
     $cleanInfo
 }
