@@ -58,6 +58,9 @@
     .PARAMETER PagingHandler
     Name of a registered PSFScriptBlock which should process the automatic paging of data.
 
+    .PARAMETER ConvertJsonAsHashtable
+    If set the json result will be converted as a HashTable
+
     .EXAMPLE
     $result = Invoke-ARAH -connection $this -path "/v4/auth/login" -method POST -body @{login = $credentials.UserName; password = $credentials.GetNetworkCredential().Password; language = "1"; authType = "sql" } -hideparameters $true
 
@@ -81,12 +84,14 @@
         $Body,
         [Hashtable] $URLParameter,
         [string]$InFile,
+        [string]$OutFile,
         [string]$ContentType,
         [bool]$EnableException = $true,
         [ValidateSet('CertificateCheck', 'HttpErrorCheck', 'HeaderValidation')]
         [String[]]$SkipCheck = @(),
         [string]$RequestModifier,
         [string]$PagingHandler,
+        [switch]$ConvertJsonAsHashtable,
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
@@ -138,6 +143,9 @@
     If ($InFile) {
         $restAPIParameter.InFile = $InFile
     }
+    If ($OutFile) {
+        $restAPIParameter.OutFile = $OutFile
+    }
 
     try {
         If ($RequestModifier) {
@@ -146,6 +154,7 @@
         }
         Write-ARAHCallMessage $restAPIParameter
         $response = Invoke-WebRequest @restAPIParameter
+        if($OutFile){return}
         if ($PSBoundParameters.Debug) {
             $global:invokeARAHrestAPIParameter = $restAPIParameter
             Write-PSFMessage "Saving restAPIParameter to `$global:invokeARAHrestAPIParameter" -level Debug
@@ -164,7 +173,11 @@
             $result = $connection.Charset.GetString([System.Text.Encoding]::GetEncoding(28591).getBytes($result))
         }
         if ($effectiveContentType -like '*json*') {
-            $result = $result | ConvertFrom-Json
+            if ($ConvertJsonAsHashtable){
+                $result = $result | ConvertFrom-Json -AsHashtable
+            }else{
+                $result = $result | ConvertFrom-Json
+            }
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
         Write-PSFMessage -Level Debug "result= $($result| ConvertTo-Json -WarningAction SilentlyContinue -Depth 5)"
