@@ -41,6 +41,10 @@
     File which should be transferred during the Request.
     See Publish-ARAHFile for usage.
 
+    .PARAMETER OutFile
+    If the request should be downloaded instead of beeing processed, this parameter
+    contains the path to the file (path+filename)
+
     .PARAMETER SkipCheck
     Array of checks which should be skipped while using Invoke-WebRequest.
     Possible Values 'CertificateCheck', 'HttpErrorCheck', 'HeaderValidation'.
