@@ -39,7 +39,7 @@
         [Array]::Reverse($callStack)
         $callStackString = $callStack -join ">"
         Write-PSFMessage  -Level Debug "CallStack: $callStackString"
-        $apiLogString = ($modifiedAPICallParameter | ConvertTo-Json -Depth $jsonDepth -Compress:$compress)
+        $apiLogString = ($modifiedAPICallParameter | ConvertTo-Json -WarningAction SilentlyContinue -Depth $jsonDepth -Compress:$compress)
         # Remove confidental data
         $apiLogString = $apiLogString -replace '"Bearer (\w{5})\w*"', '"Bearer $1******************"'
         $apiLogString = $apiLogString -replace '("password":\s*").*"', '$1***********"'

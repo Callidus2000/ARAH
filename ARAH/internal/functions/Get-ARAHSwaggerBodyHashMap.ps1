@@ -39,7 +39,7 @@
         Write-PSFMessage "DeReference $OriginalRef"
         $CurrentObject = $SwaggerObject.definitions.$OriginalRef
     }
-    Write-PSFMessage "CurrentObject=$($CurrentObject|ConvertTo-Json -depth 10)" -Level Debug
+    Write-PSFMessage "CurrentObject=$($CurrentObject| ConvertTo-Json -WarningAction SilentlyContinue -depth 10)" -Level Debug
     switch ($CurrentObject.type) {
         'object' {
             $propertyNames = $CurrentObject.properties.psobject.properties.name

@@ -44,10 +44,10 @@
     )
     $isReference = [bool]($PropertyObject.originalRef)
     if ($isReference) {
-        Write-PSFMessage "$PropertyName=$($PropertyObject|ConvertTo-Json -depth 5)"
+        Write-PSFMessage "$PropertyName=$($PropertyObject| ConvertTo-Json -WarningAction SilentlyContinue -depth 5)"
         Write-PSFMessage "isReference"
         $hash = Get-ARAHSwaggerBodyHashMap -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -OriginalRef ($PropertyObject.originalRef)
-        Write-PSFMessage "hash=$($hash|ConvertTo-Json)"
+        Write-PSFMessage "hash=$($hash| ConvertTo-Json -WarningAction SilentlyContinue)"
         $TargetHashMap.add($PropertyName, $hash)
     }
     else {
@@ -65,20 +65,20 @@
                     enum            = $PropertyObject.enum
                     mandatory       = $mandatory
                 }
-                Write-PSFMessage "newParam=$($newParam|ConvertTo-Json)" -Level Debug
+                Write-PSFMessage "newParam=$($newParam| ConvertTo-Json -WarningAction SilentlyContinue)" -Level Debug
                 $SwaggerParams.FunctionParameters += $newParam
             }
             'array' {
                 Write-PSFMessage "$PropertyName is an array"
-                Write-PSFMessage "$PropertyName=$($PropertyObject|ConvertTo-Json -depth 5)"
+                Write-PSFMessage "$PropertyName=$($PropertyObject| ConvertTo-Json -WarningAction SilentlyContinue -depth 5)"
                 Write-PSFMessage "isReference"
                 $itemDefinition = Get-ARAHSwaggerBodyHashMap -SwaggerObject $SwaggerObject -SwaggerParams $SwaggerParams -OriginalRef ($PropertyObject.items.originalRef)
-                Write-PSFMessage "itemDefinition=$($itemDefinition|ConvertTo-Json)"
+                Write-PSFMessage "itemDefinition=$($itemDefinition| ConvertTo-Json -WarningAction SilentlyContinue)"
                 $TargetHashMap.add($PropertyName, @($itemDefinition))
             }
             Default {
                 Write-PSFMessage "Unknown Property Type: $($PropertyObject.type)" -Level Warning
-                Write-PSFMessage "PropertyObject=$($PropertyObject|ConvertTo-Json -depth 5)" -Level Warning
+                Write-PSFMessage "PropertyObject=$($PropertyObject| ConvertTo-Json -WarningAction SilentlyContinue -depth 5)" -Level Warning
             }
         }
     }

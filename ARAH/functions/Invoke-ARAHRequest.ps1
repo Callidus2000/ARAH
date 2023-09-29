@@ -41,6 +41,10 @@
     File which should be transferred during the Request.
     See Publish-ARAHFile for usage.
 
+    .PARAMETER OutFile
+    If the request should be downloaded instead of beeing processed, this parameter
+    contains the path to the file (path+filename)
+
     .PARAMETER SkipCheck
     Array of checks which should be skipped while using Invoke-WebRequest.
     Possible Values 'CertificateCheck', 'HttpErrorCheck', 'HeaderValidation'.
@@ -57,6 +61,9 @@
 
     .PARAMETER PagingHandler
     Name of a registered PSFScriptBlock which should process the automatic paging of data.
+
+    .PARAMETER ConvertJsonAsHashtable
+    If set the json result will be converted as a HashTable
 
     .EXAMPLE
     $result = Invoke-ARAH -connection $this -path "/v4/auth/login" -method POST -body @{login = $credentials.UserName; password = $credentials.GetNetworkCredential().Password; language = "1"; authType = "sql" } -hideparameters $true
@@ -81,12 +88,14 @@
         $Body,
         [Hashtable] $URLParameter,
         [string]$InFile,
+        [string]$OutFile,
         [string]$ContentType,
         [bool]$EnableException = $true,
         [ValidateSet('CertificateCheck', 'HttpErrorCheck', 'HeaderValidation')]
         [String[]]$SkipCheck = @(),
         [string]$RequestModifier,
         [string]$PagingHandler,
+        [switch]$ConvertJsonAsHashtable,
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
@@ -101,7 +110,7 @@
     $SkipCheckAndValidation = ($SkipCheck + $Connection.SkipCheck) | Select-Object -Unique
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
-        Write-PSFMessage "$($UrlParameter|ConvertTo-Json)" -Level Debug
+        Write-PSFMessage "$($UrlParameter| ConvertTo-Json -WarningAction SilentlyContinue)" -Level Debug
         $parameterString = (Get-ARAHEncodedParameterString($URLParameter))
         $uri = $uri + '?' + $parameterString.trim("?")
     }
@@ -138,6 +147,9 @@
     If ($InFile) {
         $restAPIParameter.InFile = $InFile
     }
+    If ($OutFile) {
+        $restAPIParameter.OutFile = $OutFile
+    }
 
     try {
         If ($RequestModifier) {
@@ -146,6 +158,7 @@
         }
         Write-ARAHCallMessage $restAPIParameter
         $response = Invoke-WebRequest @restAPIParameter
+        if($OutFile){return}
         if ($PSBoundParameters.Debug) {
             $global:invokeARAHrestAPIParameter = $restAPIParameter
             Write-PSFMessage "Saving restAPIParameter to `$global:invokeARAHrestAPIParameter" -level Debug
@@ -164,10 +177,14 @@
             $result = $connection.Charset.GetString([System.Text.Encoding]::GetEncoding(28591).getBytes($result))
         }
         if ($effectiveContentType -like '*json*') {
-            $result = $result | ConvertFrom-Json
+            if ($ConvertJsonAsHashtable){
+                $result = $result | ConvertFrom-Json -AsHashtable
+            }else{
+                $result = $result | ConvertFrom-Json
+            }
         }
         Write-PSFMessage "Response-Header: $($response.Headers|Format-Table|Out-String)" -Level Debug
-        Write-PSFMessage -Level Debug "result= $($result|ConvertTo-Json -Depth 5)"
+        Write-PSFMessage -Level Debug "result= $($result| ConvertTo-Json -WarningAction SilentlyContinue -Depth 5)"
         if ($EnablePaging -and $PagingHandler) {
             Write-PSFMessage "MurkSiPu '$($response.Gettype())'"
             [PSFScriptBlock]$pagingHandlerScript = Get-PSFScriptBlock -Name $PagingHandler

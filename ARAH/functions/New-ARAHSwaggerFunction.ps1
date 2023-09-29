@@ -55,7 +55,7 @@
     $targetAPI = Get-ARAHSwaggerEndpoint -SwaggerObject $swaggerObj -chooseSingle
     if ($targetAPI) {
         $swaggerInfo = Get-ARAHCleanSwaggerInfo -SwaggerObject $swaggerObj -path $targetAPI."API-Path" -Method $targetAPI.Method
-        # Write-PSFMessage -Level Host "$($cleanInfo|convertto-json -Depth 10)"
+        # Write-PSFMessage -Level Host "$($cleanInfo| ConvertTo-Json -WarningAction SilentlyContinue -Depth 10)"
         # New-PSMDTemplate -TemplateName ARAHFunction -OutStore MyStore -FilePath $PSScriptRoot\þnameþ.ps1 -Force
         $templateParameter = @{
             name    = $swaggerInfo.operationId
@@ -69,7 +69,7 @@
             invokeCommand  = $InvokeCommand
         }
         if ($swaggerInfo.body) {
-            $bodyDefinition = $swaggerInfo.body | ConvertTo-Json -Depth 15
+            $bodyDefinition = $swaggerInfo.body | ConvertTo-Json -WarningAction SilentlyContinue -Depth 15
             $bodyDefinition = ($bodyDefinition -replace ': ', "= ")
             $bodyDefinition = ($bodyDefinition -ireplace ',')
             $bodyDefinition = ($bodyDefinition -replace '{', "@{")
