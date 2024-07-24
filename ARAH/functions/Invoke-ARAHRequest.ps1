@@ -110,7 +110,7 @@
     $SkipCheckAndValidation = ($SkipCheck + $Connection.SkipCheck) | Select-Object -Unique
     if ($URLParameter) {
         Write-PSFMessage "Converting UrlParameter to a Request-String and add it to the path" -Level Debug
-        Write-PSFMessage "$($UrlParameter| ConvertTo-Json -WarningAction SilentlyContinue)" -Level Debug
+        Write-PSFMessage "$($UrlParameter| ConvertTo-Json -WarningAction SilentlyContinue -Depth 3)" -Level Debug
         $parameterString = (Get-ARAHEncodedParameterString($URLParameter))
         $uri = $uri + '?' + $parameterString.trim("?")
     }
