@@ -5,6 +5,7 @@
     [String]$ServerRoot
     [String]$WebServiceRoot
     [String]$AuthenticatedUser
+    [version]$HttpVersion="1.1.0"
     hidden[PSCredential]$Credential
     hidden[String]$ContentType
     hidden[Microsoft.PowerShell.Commands.WebRequestSession]$WebSession

@@ -121,6 +121,7 @@
         ContentType = $effectiveContentType
         WebSession  = $connection.WebSession
         Credential  = $connection.Credential
+        HttpVersion = $Connection.HttpVersion
     }
     if ($SkipCheckAndValidation.Count -gt 0) {
         Write-PSFMessage "Skipping the following checks during http request: $($SkipCheckAndValidation|Join-String ',')"
