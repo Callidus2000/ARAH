@@ -96,6 +96,7 @@
         [string]$RequestModifier,
         [string]$PagingHandler,
         [switch]$ConvertJsonAsHashtable,
+        [hashtable]$Headers,
         [switch]$EnablePaging
     )
     $uri = $connection.webServiceRoot + $path
@@ -122,6 +123,10 @@
         WebSession  = $connection.WebSession
         Credential  = $connection.Credential
         HttpVersion = $Connection.HttpVersion
+    }
+    if ($Headers){
+        Write-PSFMessage "Adding additional headers: $($Headers|ConvertTo-Json -Compress)"
+        $restAPIParameter.Headers += $Headers
     }
     if ($SkipCheckAndValidation.Count -gt 0) {
         Write-PSFMessage "Skipping the following checks during http request: $($SkipCheckAndValidation|Join-String ',')"
@@ -155,7 +160,7 @@
     try {
         If ($RequestModifier) {
             [PSFScriptBlock]$reqModifierScript = Get-PSFScriptBlock -Name $RequestModifier
-            $reqModifierScript.InvokeEx($false, $true, $true)
+            $reqModifierScript.InvokeEx($false, $true, $false)
         }
         Write-ARAHCallMessage $restAPIParameter
         $response = Invoke-WebRequest @restAPIParameter
