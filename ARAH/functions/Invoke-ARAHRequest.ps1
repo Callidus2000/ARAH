@@ -118,7 +118,7 @@
     $restAPIParameter = @{
         Uri         = $Uri
         method      = $Method
-        Headers     = $connection.headers
+        Headers     = $connection.headers.clone()
         ContentType = $effectiveContentType
         WebSession  = $connection.WebSession
         Credential  = $connection.Credential
