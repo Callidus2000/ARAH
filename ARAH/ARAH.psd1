@@ -3,7 +3,7 @@
 	RootModule        = 'ARAH.psm1'
 
 	# Version number of this module.
-	ModuleVersion     = '1.3.8'
+	ModuleVersion     = '1.5.1'
 
 	# ID used to uniquely identify this module
 	GUID              = '5bf61bed-a3da-4550-949a-a869b8dc29c6'
@@ -26,7 +26,7 @@
 	# Modules that must be imported into the global environment prior to importing
 	# this module
 	RequiredModules   = @(
-		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.6.214' }
+		@{ ModuleName = 'PSFramework'; ModuleVersion = '1.11.343' }
 	)
 
 	# Assemblies that must be loaded prior to importing this module
